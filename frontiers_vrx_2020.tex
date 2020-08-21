@@ -218,7 +218,7 @@ Example spectra are shown in \figref{f:pm} to illustrate the ability to independ
 \begin{figure}[hbt!]
   \centering
   \includegraphics[width=\SFc\textwidth]{images/pm_spectra_2.png}
-  \caption{Two-parameter Pierson-Moskowitz wave spectrum shown as a function of wave period for a series of peak period ($T_p$) values, using two different wave height gains ($K_H$).}
+  \caption{Two-parameter Pierson-Moskowitz wave spectrum shown as a function of wave period for a series of peak period ($T_pz$) values, using two different wave height gains ($K_H$).}
   \label{f:pm}
 \end{figure} 
 Once the spectrum is defined, the individual wave amplitude values are determined by sampling the wave spectrum according to \eqref{e:amp}.
@@ -421,7 +421,7 @@ To approximate the motion of a vehicle in the ocean environment, we adapt the si
 \label{e:fossenmodel}
 \end{split}
 \end{equation}
-where
+should velocity for Mrb and Crb be relative velocity? see 8.147 in Fossen 2011 (pg 236). where
 \begin{IEEEeqnarray}{rCl}\IEEEyesnumber\label{e:estate}
     \bm{\eta} & = & [x, y, z, \phi, \theta, \psi]^T \IEEEyessubnumber \\
     \bm{\nu}  & = & [u, v, w, p, q, r]^T \IEEEyessubnumber
@@ -448,9 +448,9 @@ The hydrodynamic forces in \eqref{e:fossenmodel} include the added mass terms du
 \begin{array}{cccccc}
 X_{\dot{u}} & 0 & 0 &0 &0 &0 \\
 0 & Y_{\dot{v}} & 0 &0 &0 & Y_{\dot{r}} \\
-0 & 0  &0 &0 &0 &0 \\
-0 &0 &0 &0 &0 &0 \\
-0 &0 &0 &0 &0 &0 \\
+0 & 0  &Z_{\dot{w}} &0 &0 &0 \\
+0 &0 &0 &K_{\dot{p}} &0 &0 \\
+0 &0 &0 &0 &M_{\dot{q}} &0 \\
 0 &N_{\dot{v}} &0 &0 & 0 & N_{\dot{r}} 
 \end{array} \right]
 }
@@ -639,12 +639,22 @@ The purpose of the VRX challenge is to provide competitors with the opportunity 
 The first VRX Competition was held in November 2019. Similar to RobotX, the VRX Challenge is organized around a series of tasks that evaluate autonomous navigation and perception capabilities of participants' solutions.  These tasks include station-keeping, waypoint guidance, object localization and characterization, navigation and rules of the road, and docking.  The VRX environment also serves as a proof of concept for the theory of operations herein described. Tasks require teams to develop solutions that correctly compensate for the influence of waves and wind when controlling the motion of the vehicle. The station-keeping and path planning tasks, in particular, bring this requirement into relief.  In order for these tasks to provide useful evaluations of participant solutions, the VRX environment must succeed in simulating the impact of wind and wave forces with sufficient fidelity and speed.  The object localization and characterization task isolates environmental effects on perception, and therefore relies heavily on the availability of synchronized visual and physical models. Finally, the more complex navigation and docking tasks test the ability of the VRX environment to render a real-time simulation that gives a sufficiently faithful approximation of environmental influence on both motion control and perception effects at the same time\footnote{A complete description of the VRX 2019 challenge tasks is available at \url{https://bitbucket.org/osrf/vrx/wiki/documentation}}.    
 
 \figref{f:sandisland_wind} and \figref{f:dock_waves} demonstrate the combined effect of our environment and vehicle models within the VRX simulation environment. \figref{f:sandisland_wind} depicts the base Sand Island world on which the competition is built, including course elements and the \wamv{}. The inset graph included in the display shows the wind speed varying over time in accordance with user specified parameters and the model given in Section~\ref{s:wind_model}. \figref{f:dock_waves} was created from the Dock task plugin using a peak period of $5$ seconds and a gain ratio of $0.7$. The scene illustrates the effect of the wave field on vehicle motion as well as the disturbances to the perception system produced by the resulting pitch, roll and heave of the vehicle.  
+
 \begin{figure}[hbt!]
   \centering
-  \includegraphics[width=\FigWidth\textwidth]{images/wind_plot.png}
+  \includegraphics[width=\FigWidth\textwidth]{images/perception_task.png}
+  \caption{The VRX Competition Perception task tests the ability to identify the number and type of markers that appear in the vehicle's point of view during a short time interval. The vehicle remains fixed along the $x$ and $y$ axes but is still subject to environmental forces that may cause it to pitch, roll and heave during the task.}
+  \label{f:perception_waves}
+\end{figure}
+
+\begin{figure}[hbt!]
+  \centering
+  \includegraphics[width=\FigWidth\textwidth]{images/sand_island_beach_wind.png}
   \caption{The VRX Sand Island world rendered in Gazebo with a plot of wind speed over time.}
   \label{f:sandisland_wind}
 \end{figure}
+
+
 
 \begin{figure}[hbt!]
   \centering
@@ -653,6 +663,14 @@ The first VRX Competition was held in November 2019. Similar to RobotX, the VRX 
   \label{f:dock_waves}
 \end{figure}
 
+
+
+\begin{figure}[hbt!]
+  \centering
+  \includegraphics[width=\FigWidth\textwidth]{images/navigation_wide_fog_2.png}
+  \caption{The impact of fog on VRX Competition Navigation task. As the vehicle enters the course, the color of distant markers is obscured by fog and appears faded. Similarly, black spherical obstacles are clearly visible up close, but rendered gray in the distance, making them difficult to distinguish from the water surface. }
+  \label{f:navigation_fog}
+\end{figure}
 
 \section{Conclusion}
 
