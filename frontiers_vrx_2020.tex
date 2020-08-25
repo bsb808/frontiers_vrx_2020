@@ -70,7 +70,7 @@ $^{2}$Open Robotics, $^{3}$University of Florida, $^{4}$University of British Co
 \newcommand{\SFb}{0.45}
 \newcommand{\SFPic}{0.45}
 \newcommand{\SFPlot}{0.45}
-\newcommand{\SFc}{0.45}
+\newcommand{\SFc}{0.5}
 % Just a lazy way of setting the figure width (percentage of text width)
 % 0.7 works well for 1 column
 % 0.4 works well for 2 column
@@ -623,6 +623,41 @@ To illustrate this process we specify the GLF thrust mapping to approximate the 
 \end{figure}
 
 This approach to simulating propulsion force approximates the steady-state non-linearities to exercise the motion controllers under test.  However, it does not address effects such as transient thruster dynamics for slow-speed control described by \citet{whitcomb99development}, varying advance ratios due to forward vessel speed for high-speed operation or changes in thrust during turning due to the changing inflow angle, which can generate meaningful side force.  Such additions to the propulsion model can be readily implemented, but rely upon the availability of more detailed propulsion characterization.
+
+\section{Model and Simulation Verification}
+
+[Thinking this might be a separate section - Klamo?]
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\SFc\textwidth]{images/2020_08_25_head_seas_001.png}
+  \caption{Simulation results for wave induced motion in head seas.}
+  \label{f:head_seas}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\SFc\textwidth]{images/2020_08_25_beam_seas_001.png}
+  \caption{Simulation results for wave induced motion in beam seas.}
+  \label{f:beam_seas}
+\end{figure}
+
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\SFc\textwidth]{images/2020_08_25_manuevering_000.png}
+  \caption{Simulation results for manuevering in calm water.}
+  \label{f:manuevering}
+\end{figure}
+
+Notes on the scenarios used to generate figures:
+
+\begin{itemize}
+\item The motion (heave, pitch roll) is shown as steady-state amplitude against wave height.
+\item Seakeeping experiments done in monochromatic sea conditions with \unit[6]{s} period.
+\item Manuevering scenario has magnitude of the overall thruster command is 0.75\% which results in approximate equivalent surge velocity.  Each simulation is run for \unit[60]{s}, so the length of each position plot is approximately equal.
+\end{itemize}
+
 
 \section{VRX Reference Implementation}
 Launched in 2012 with support from the Office of Naval Research, the Maritime RobotX Challenge is hosted biannually by RoboNation to promote research and advancement in autonomous surface vehicles, as well as to encourage student interest and foster relationships within the robotics community. Participating teams compete to design and implement systems capable of accomplishing a variety of tasks ranging from basic navigation and control to more complex operations involving obstacle avoidance, perception and underwater object retrieval. %Since its inception, RobotX has drawn interest from well over a dozen university robotics teams at each of its event. The latest of these, held in 2018 at Sand Island Boat Launch in Honolulu, involved contributions from 15 universities from around the Pacific Rim. 
