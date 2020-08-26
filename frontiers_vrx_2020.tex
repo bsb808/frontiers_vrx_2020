@@ -33,14 +33,13 @@
 \usepackage{units}
 \usepackage{siunitx}
 
-\usepackage{url}
 % Requires sudo apt-get install texlive-publishers texlive-publishers-doc
 \usepackage{IEEEtrantools}
 
 % For Frontiers
 \usepackage{url,hyperref,lineno,microtype,subcaption}
 \usepackage[onehalfspacing]{setspace}
-
+\usepackage{xcolor}
 %\linenumbers
 
 % Load this package last - for non-line-break hyphens (e.g., WAM-V)
@@ -438,7 +437,6 @@ Our intended use of the VRX simulation, as described in this article, does not j
 
 %The motion of a vessel is approximated in simulation by estimating each of the constituent forces in \eqref{e:fossenmodel} at each time step of the simulation.
 %The rigid body components are simulated using the Gazebo physics engine.  The remaining constituents are simulated using the model components described below.
-\newpage
 
 \subsection{Hydrodynamic Forces}\label{s:hydro}
 The hydrodynamic forces in \eqref{e:fossenmodel} include the added mass terms due to inertia of the surrounding fluid and hydrodynamic damping.  The hydrodynamic derivatives are expressed using SNAME (1950) notation \citep{fossen11handbook}.  The simplified added mass matrix is expressed as
@@ -446,18 +444,19 @@ The hydrodynamic forces in \eqref{e:fossenmodel} include the added mass terms du
 \medmath{
 \bm{M}_{A}= -\left[ 
 \begin{array}{cccccc}
-X_{\dot{u}} & 0 & 0 &0 &0 &0 \\
-0 & Y_{\dot{v}} & 0 &0 &0 & Y_{\dot{r}} \\
-0 & 0  &Z_{\dot{w}} &0 &0 &0 \\
-0 &0 &0 &K_{\dot{p}} &0 &0 \\
-0 &0 &0 &0 &M_{\dot{q}} &0 \\
-0 &N_{\dot{v}} &0 &0 & 0 & N_{\dot{r}} 
+X_{\dot{u}} & 0 & 0 & 0 & 0 & 0 \\
+0 & Y_{\dot{v}} & 0 & 0 & 0 & Y_{\dot{r}} \\
+0 & 0  &Z_{\dot{w}} & 0 & 0 & 0 \\
+0 & 0 & 0 &K_{\dot{p}} & 0 & 0 \\
+0 & 0 & 0 & 0 &M_{\dot{q}} & 0 \\
+0 & N_{\dot{v}} & 0 & 0 & 0 & N_{\dot{r}} 
 \end{array} \right]
 }
 \end{equation}
-where $N_{\dot{v}}=Y_{\dot{r}}$.
-The Coriolis-centripetal matrix for the added mass is expressed using the same hydrodynamic derivatives
-\begin{multline}
+\color{red}where, according to \citet{fossen11handbook} we can assume $N_{\dot{v}} = Y_{\dot{r}}$ for the \wamv{} since it is a slow moving surface ship.
+
+Once the added mass terms to include in the mass matrix of the model are decided, \citet{imhlay} has derived what the resulting Coriolis-centripetal added mass terms are. The Coriolis-centripetal added mass matrix is expressed using the same hydrodynamic derivatives.\color{black}
+\begin{multline}% ***need to fix formatting of matrix to stop spillage
   \medmath{
     \bm{C}_{A}(\bm{\nu}_r)=
   }
@@ -465,12 +464,12 @@ The Coriolis-centripetal matrix for the added mass is expressed using the same h
   \medmath{
     \left[ 
       \begin{array}{cccccc}
-        0 &0 &0 &0 & 0 & Y_{\dot{v}}v_r+Y_{\dot{r}}r \\% PLEASE CHECK; Fossen (1994) has the negative signs on the opposite terms (pg 37) - BSB thinks it is correct
-        0 &0 &0 &0 & 0 & -X_{\dot{u}}u_r\\
-        0 &0 &0 &0 &0 &0 \\
-        0 &0 &0 &0 &0 &0 \\
-        0 &0 &0 &0 &0 &0 \\
-        -Y_{\dot{v}}v_r - Y_{\dot{r}}r& X_{\dot{u}}u_r & 0 & 0 & 0 & 0 
+        0 & 0 & 0 & 0 & -Z_{\dot{w}}w_r & Y_{\dot{v}}v_r+Y_{\dot{r}}r \\
+        0 & 0 & 0 & Z_{\dot{w}}w_r & 0 & -X_{\dot{u}}u_r\\
+        0 & 0 & 0 & -Y_{\dot{v}}v_r & X_{\dot{u}}u_r & 0 \\
+        0 & -Z_{\dot{w}}w_r & Y_{\dot{v}}v_r & 0 & -N_{\dot{r}}r_r & M_{\dot{q}}q_r \\
+        -Z_{\dot{w}}w_r & 0 & -X_{\dot{u}}u_r & N_{\dot{r}}r_r & 0 & -K_{\dot{p}}p_r \\
+        -Y_{\dot{v}}v_r - Y_{\dot{r}}r& X_{\dot{u}}u_r & 0 & -M_{\dot{q}}q_r & K_{\dot{p}}p_r & 0 
       \end{array} \right].
   }
 \end{multline}
@@ -484,48 +483,38 @@ expressed as a sum of linear and quadratic terms:
   \medmath{
 \bm{D}_l= -\left[ 
 \begin{array}{cccccc}
-X_{u} & 0 & 0 &0 &0 &0\\
-0 & Y_{v} &0  &0 &0 & Y_{r}\\
-0 &0 & Z_w   &0 &0 &0 \\
-0 &0 &0 & K_p  &0 &0 \\
-0 &0 &0 &0 & M_q &0 \\
-0 & N_{v} &0 &0 &0 & N_{r}
+X_{u} & 0     & 0     & 0     & 0     & 0\\
+0     & Y_{v} & 0     & 0     & 0     & Y_{r}\\
+0     & 0     & Z_{w} & 0     & 0     & 0 \\
+0     & 0     & 0     & K_{p} & 0     & 0 \\
+0     & 0     & 0     & 0     & M_{q} & 0 \\
+0     & N_{v} & 0     & 0     & 0     & N_{r}
 \end{array} \right]
 }
 \label{e:D}
 \end{equation}
 and
-\begin{equation}\label{e:D_n}
-  \begin{split}
-    \medmath{
-      \bm{D}_n(\bm{\nu}_r) = -
-    } &
-    \medmath{
-      \left[ 
-        \begin{array}{ccc}
-          X_{u|u|}|u_r| & 0 & 0 \\
-          0 & Y_{v|v|}|v_r| +Y_{r|v|}|r| &0  \\
-          0 &0 & 0   \\
-          0 &0 &0  \\
-          0 &0 &0  \\
-          0 & N_{v|v|}|v_r|+N_{r|v|}|r| &0
-        \end{array} \right.
-      }
-\\
-&
-\medmath{
-  \left. 
-  \begin{array}{ccc}
-    0 &0 & 0   \\
-    0 &0 & Y_{v|r|}|v_r|+Y_{r|r|}|r|\\
-    0 &0 & 0   \\
-    0 &0 & 0   \\
-    0 &0 & 0   \\
-    0 &0 & N_{v|r|}|v_r|+N_{r|r|}|r|
-  \end{array} \right] .
- }   
-  \end{split}
-\end{equation}
+\begin{multline}\label{e:D_n}
+  \medmath{
+    \bm{D}_n(\bm{\nu}_r) =
+  }
+  \\
+  \medmath{
+    -\left[ 
+      \begin{array}{cccccc}
+          X_{u|u|}|u_r| & \hspace{-0.25in}0 & 0 & 0 & 0 & 0 \\
+          0 & \hspace{-0.25in}Y_{v|v|}|v_r| & 0 & 0 & 0 & 0  \\
+          0 & \hspace{-0.25in}0 & 0 & 0 & 0 & 0   \\
+          0 & \hspace{-0.25in}0 & 0 & 0 & 0 & 0  \\
+          0 & \hspace{-0.25in}0 & 0 & 0 & 0 & 0  \\
+          0 & \hspace{-0.25in}0 & 0 & 0 & 0 & N_{r|r|}|r| 
+      \end{array} \right].
+  }
+\end{multline}
+
+\color{red} As discussed in \citet{fossen11handbook}, the linear damping matrix captures predominately two effects, viscous skin-friction damping and potential damping. In the horizontal plane, the viscous component of the linear damping terms are important for vehicles traveling at low speed. In the vertical plane, the potential damping components are important regardless of the vessel speed. This is due to the fact that unlike the horizontal plane, the vertical plane motions have restoring forces or moments and consequently an associated natural frequency of motion.
+
+\citet{fossen11handbook} highlighted the fact that the nonlinear damping matrix, with its cross-flow damping terms, becomes the dominant damping contribution at high speed. Since we want our vehicle model to include a wide range of surface vehicles, we have included these nonlinear damping terms. However, since the \wamv{} is a predominatly low speed vehicle, when we apply our baseline model to it we set the $Y_{v|v|}$ and $N_{r|r|}$ terms to zero. We would also normally set $X_{u|u|}$ to zero as well but since \citet{sarda16station} already experimentally determined the value, there is no extra effort required to keep the term.\color{black}
 
 This approximation of the hydrodynamic effects is implemented as a parameterized Gazebo plugin.  The user defines the characteristics of the vessel under test through a vessel-specific configuration file that includes the hydrodynamic derivatives.  During each time step of the simulation, the plugin is executed with access to the state of the vessel and environment.  The hydrodynamic force terms in \eqref{e:fossenmodel} are calculated based on this state information and the user-defined vessel characteristics.  The resulting force and moment values are then applied to the vessel through the Gazebo application programming interface (API) for inclusion in the next iteration of the physics engine.
 
@@ -623,45 +612,47 @@ To illustrate this process we specify the GLF thrust mapping to approximate the 
 \end{figure}
 
 This approach to simulating propulsion force approximates the steady-state non-linearities to exercise the motion controllers under test.  However, it does not address effects such as transient thruster dynamics for slow-speed control described by \citet{whitcomb99development}, varying advance ratios due to forward vessel speed for high-speed operation or changes in thrust during turning due to the changing inflow angle, which can generate meaningful side force.  Such additions to the propulsion model can be readily implemented, but rely upon the availability of more detailed propulsion characterization.
-
+\color{red}
 \section{Model and Simulation Verification}
+To confirm that our vehicle model captures the correct \emph{behavior} of the \wamv{}, we have simulated a number of standard maneuvering and seakeeping tests in the VRX environment. The purpose of these tests is not to validate our model against the actual \wamv{} but rather to confirm that our model captures realistic behavior and the correct dependencies on the wave and propulsion inputs. This means that for incident waves, we expect a measurable but bounded motion response that increases as the wave height increases. For the propulsion input we expect a thrust difference between the two propellers to cause the vehicle to turn with the turning radius decreasing as thrust differential increases.
 
-[Thinking this might be a separate section - Klamo?]
+The first set of simulations were a series of seakeeping tests. The \wamv{} response was simulated using our vehicle and incident wave field models. In the simulation the \wamv{} had no controller setpoints and almost no thrust. The incident wave field was monochromatic, longcrested waves, that had a period of \unit[6]{s} and wave heights that varied from \unit[0]{m} to \unit[2]{m} across the set of simulation runs. Assuming the deep water dispersion relationship, these waves had a wavelength of approximately \unit[56]{m} and thus a wavelength-to-vehicle length of roughly $14$. The largest wave has a wave steepness, wave height to wave length ratio, of $1/30$ which is typical for seakeeping tests. These conditions were chosen because they represent a wave environment ranging from a Sea State $1$ to $4$. (reference one of your sea state table papers???)
 
+Figure~\ref{f:head_seas} shows the heave, pitch, and roll response of the \wamv{} to head seas under these wave and operating conditions.%
+%
 \begin{figure}[h]
   \centering
   \includegraphics[width=\SFc\textwidth]{images/2020_08_25_head_seas_001.png}
   \caption{Simulation results for wave induced motion in head seas.}
   \label{f:head_seas}
 \end{figure}
+%
+Each simulation was run for \unit[60]{s} resulting in roughly $10$ wave encounters. The amplitude of the motion response in each degree-of-freedom was determined using the last X wave encounters to not be influenced by the initial transients. The roll and pitch response correspond to the left y-axis scale in the figure and the heave response is plotted against the right y-axis scale. Since these cases correspond to head seas, we expect to see an increasing response in pitch and heave and very little response in roll. The figure shows that the pitch and heave amplitude responses of the \wamv{} increased as the wave height increased. Furthermore, the responses show that the \wamv{} is contouring to the passing waves as typically happens when the wavelength is considerably longer than the vehicle length. This means that the pitch angle matches the local slope of the wave and the heave displacement matches the wave amplitude. For the largest wave simulated, the maximum wave slope, given by $ka$, is \unit[6.4]{$^\circ$} and matches the simulated amplitude of the oscillating pitch angle. The heave amplitude response of the \wamv{} for this wave equals \unit[1]{m} which is the wave amplitude. Finally, the roll amplitude response remains very small as the wave height increases. There is a small response since the vehicle does not remain perfect aligned in a head seas condition but yaws slightly since there is no heading controller during these simulations.
 
+Figure~\ref{f:beam_seas} shows the heave, pitch, and roll response of the \wamv{} again but this time for beam seas. The formatting of the figure axes and data is the same as Fig.~\ref{f:head_seas}.%
+%
 \begin{figure}[h]
   \centering
   \includegraphics[width=\SFc\textwidth]{images/2020_08_25_beam_seas_001.png}
   \caption{Simulation results for wave induced motion in beam seas.}
   \label{f:beam_seas}
 \end{figure}
+%
+Since this is a beam seas wave environment, we expect to see a vehicle response in roll now instead of pitch while still seeing a heave response. The figure shows that the simulated roll and heave amplitude responses of the \wamv{} increases as the wave height increases and that the vehicle motion is again contouring to the passing wave. The ratio of the pitch amplitude response to the wave slop is again unity as is the ratio of the heave amplitude to wave amplitude. Finally, consistent with a beam sea, the pitch response of the \wamv{} is much smaller than the roll response.
 
-
+The second set of simulations were a series of manuevering tests involving turning circles. Manuevering scenario has magnitude of the overall thruster command is 0.75\% which results in approximate equivalent surge velocity.  Each simulation is run for \unit[60]{s}, so the distance travelled by the vehicle is approximately equal for each run shown.
 \begin{figure}[h]
   \centering
   \includegraphics[width=\SFc\textwidth]{images/2020_08_25_manuevering_000.png}
   \caption{Simulation results for manuevering in calm water.}
   \label{f:manuevering}
 \end{figure}
-
-Notes on the scenarios used to generate figures:
-
-\begin{itemize}
-\item The motion (heave, pitch roll) is shown as steady-state amplitude against wave height.
-\item Seakeeping experiments done in monochromatic sea conditions with \unit[6]{s} period.
-\item Manuevering scenario has magnitude of the overall thruster command is 0.75\% which results in approximate equivalent surge velocity.  Each simulation is run for \unit[60]{s}, so the length of each position plot is approximately equal.
-\end{itemize}
-
-
+\color{black}
 \section{VRX Reference Implementation}
-Launched in 2012 with support from the Office of Naval Research, the Maritime RobotX Challenge is hosted biannually by RoboNation to promote research and advancement in autonomous surface vehicles, as well as to encourage student interest and foster relationships within the robotics community. Participating teams compete to design and implement systems capable of accomplishing a variety of tasks ranging from basic navigation and control to more complex operations involving obstacle avoidance, perception and underwater object retrieval. %Since its inception, RobotX has drawn interest from well over a dozen university robotics teams at each of its event. The latest of these, held in 2018 at Sand Island Boat Launch in Honolulu, involved contributions from 15 universities from around the Pacific Rim. 
+Launched in 2012 with support from the Office of Naval Research, the Maritime RobotX Challenge is hosted biannually by RoboNation to promote research and advancement in autonomous surface vehicles, as well as to encourage student interest and foster relationships within the robotics community. Participating teams compete to design and implement systems capable of accomplishing a variety of tasks ranging from basic navigation and control to more complex operations involving obstacle avoidance, perception and underwater object retrieval.
 
+%Since its inception, RobotX has drawn interest from well over a dozen university robotics teams at each of its event. The latest of these, held in 2018 at Sand Island Boat Launch in Honolulu, involved contributions from 15 universities from around the Pacific Rim. 
+%
 The purpose of the VRX challenge is to provide competitors with the opportunity to prototype and test software solutions in advance of physical on-water deployments. A major goal of the project is to facilitate improved performance in the physical competition. As such, it implements a suite of models and plugins that closely mirrors the location, course elements, and types of tasks encountered by participants in RobotX 2018. \figref{f:robotx_vrx} shows a visual comparison of an example vehicle and elements from RobotX alongside a similar scene rendered in the VRX environment with Gazebo. %To encourage engagement with the platform as well as to underscore its utility with respect to preparing for RobotX, we employ these components in the creation of the VRX Competition-\footnote{\url{https://robotx.org/index.php/about/about-virtual-robotx}}---a virtual competition that parallels the structure and approach of the RobotX Challenge. 
 
 \begin{figure}[hbt!]
@@ -689,16 +680,12 @@ The first VRX Competition was held in November 2019. Similar to RobotX, the VRX 
   \label{f:sandisland_wind}
 \end{figure}
 
-
-
 \begin{figure}[hbt!]
   \centering
   \includegraphics[width=\FigWidth\textwidth]{images/waves_sync.png}
   \caption{The VRX Competition Dock task with a non-trivial wave environment ($K = 0.7$, $T_p = 5$). Note the \wamv{} is slightly rolled and pitched due to wave forcing, and the effect of this disturbance is reflected in the camera view.}
   \label{f:dock_waves}
 \end{figure}
-
-
 
 \begin{figure}[hbt!]
   \centering
@@ -718,7 +705,7 @@ The VRX simulation is implemented as a set of Gazebo plugins, object models (vis
 \section*{Acknowledgments}
 This project was supported in part by the Department of the Navy, Office of Naval Research.  The VRX simulator is an open source project that welcomes community contributions.  We thank all the contributors for their time and energy.  A current list of contributors is maintained at \url{https://bitbucket.org/osrf/vrx/wiki/Contributors}.
 
-This article extends prior work by the authors in the same subject \citep{bingham19toward} by improving the environmental disturbance models (wind and waves) to increase physical fidelity, refining the surface vessel manuevering and seakeeping model and reporting the outcome of the first virtual robotics competition.
+This article extends prior work by the authors in the same subject \citep{bingham19toward} by improving the environmental disturbance models (wind and waves) to increase physical fidelity, refining the surface vessel manuevering and seakeeping model, \color{red} performing a number of seakeeping and maneuvering vehicle response verification tests,\color{black} and reporting the outcome of the first virtual robotics competition.
 
 \bibliographystyle{frontiersinSCNS_ENG_HUMS} 
 \bibliography{bbing_master}
