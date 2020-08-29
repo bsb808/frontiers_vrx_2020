@@ -414,10 +414,10 @@ In the upper axis, the speed is normalized by the standard deviation of the time
 %
 \section{Vehicle Model}
 %
-To approximate the motion of a \color{red}surface\color{black}vehicle in the ocean environment, we adapt the six degree-of-freedom robot-like vectorial model for marine craft, proposed by \citet{fossen11handbook}, and expressed as
+To approximate the motion of a surface vehicle in the ocean environment, we adapt the six degree-of-freedom robot-like vectorial model for marine craft, proposed by \citet{fossen11handbook}, and expressed as\footnote{The rigid-body terms can be expressed equivalently using either the total vessel velocity or the velocity relative the the fluid, see Property 8.1 of \citet{fossen11handbook}.  For our implementation the rigid-body terms and the hydrodynamics terms are solved for separately, and it is more direct to leverage the native physics engine in terms of total rigid-body velocity.}
 \begin{equation}
 \begin{split}
-&\underbrace{\bm{M}_{RB}\dot{\bm{\nu}}+\bm{C}_{RB}(\bm{\nu})\bm{\nu}}_\text{rigid body forces} + \\
+&\underbrace{\bm{M}_{RB}\dot{\bm{\nu}}+\bm{C}_{RB}(\bm{\nu})\bm{\nu}}_\text{rigid-body forces} + \\
 &\underbrace{\bm{M}_A\dot{\bm{\nu}}_r + \bm{C}_A(\bm{\nu}_r)\bm{\nu}_r + 
   \bm{D}(\bm{\nu}_r)\bm{\nu}_r}_\text{hydrodynamic forces} + 
 \underbrace{\bm{g}(\bm{\eta})}_\text{hydrostatic forces} \\
@@ -425,7 +425,7 @@ To approximate the motion of a \color{red}surface\color{black}vehicle in the oce
 \label{e:fossenmodel}
 \end{split}
 \end{equation}
-\color{red} ***should velocity for Mrb and Crb be relative velocity? see 8.147 in Fossen 2011 (pg 223). \color{black} where
+where
 \begin{IEEEeqnarray}{rCl}\IEEEyesnumber\label{e:estate}
     \bm{\eta} & = & [x, y, z, \phi, \theta, \psi]^T \IEEEyessubnumber \\
     \bm{\nu}  & = & [u, v, w, p, q, r]^T \IEEEyessubnumber
@@ -723,7 +723,7 @@ The VRX simulation is implemented as a set of Gazebo plugins, object models (vis
 \section*{Acknowledgments}
 This project was supported in part by the Department of the Navy, Office of Naval Research.  The VRX simulator is an open source project that welcomes community contributions.  We thank all the contributors for their time and energy.  A current list of contributors is maintained at \url{https://bitbucket.org/osrf/vrx/wiki/Contributors}.
 
-This article extends prior work by the authors in the same subject \citep{bingham19toward} by improving the environmental disturbance models (wind and waves) to increase physical fidelity, refining the surface vessel manuevering and seakeeping model, \color{red} performing a number of seakeeping and maneuvering vehicle response verification tests,\color{black} and reporting the outcome of the first virtual robotics competition.
+This article extends prior work by the authors in the same subject \citep{bingham19toward} by improving the environmental disturbance models (wind and waves) to increase physical fidelity, refining the surface vessel manuevering and seakeeping model, \color{red} performing a number of seakeeping and maneuvering vehicle response verification tests, \color{black} and reporting the outcome of the first virtual robotics competition.
 
 \bibliographystyle{frontiersinSCNS_ENG_HUMS} 
 
