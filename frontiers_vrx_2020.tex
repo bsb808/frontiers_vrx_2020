@@ -2,6 +2,10 @@
 %Final - 2 column style
 \documentclass[utf8]{frontiersSCNS} % for Science, Engineering and Humanities and Social Sciences articles
 
+% For using overleaf or local compilation
+% See setting of true/false directly after \begin{document}
+\newif\ifoverleaf % default is \overleaftrue
+
 % The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
 \usepackage{acronym}
 \usepackage{algorithm}
@@ -57,7 +61,10 @@
 \def\corrEmail{bbingham@nps.edu}
 %
 \begin{document}
-%
+
+\overleaffalse
+%\overleaftrue
+
 % A few math shortcuts
 \input{defs}
 %
@@ -407,10 +414,10 @@ In the upper axis, the speed is normalized by the standard deviation of the time
 %
 \section{Vehicle Model}
 %
-To approximate the motion of a \color{red}surface\color{black}vehicle in the ocean environment, we adapt the six degree-of-freedom robot-like vectorial model for marine craft, proposed by \citet{fossen11handbook}, and expressed as
+To approximate the motion of a surface vehicle in the ocean environment, we adapt the six degree-of-freedom robot-like vectorial model for marine craft, proposed by \citet{fossen11handbook}, and expressed as\footnote{The rigid-body terms can be expressed equivalently using either the total vessel velocity or the velocity relative the the fluid, see Property 8.1 of \citet{fossen11handbook}.  For our implementation the rigid-body terms and the hydrodynamics terms are solved for separately, and it is more direct to leverage the native physics engine in terms of total rigid-body velocity.}
 \begin{equation}
 \begin{split}
-&\underbrace{\bm{M}_{RB}\dot{\bm{\nu}}+\bm{C}_{RB}(\bm{\nu})\bm{\nu}}_\text{rigid body forces} + \\
+&\underbrace{\bm{M}_{RB}\dot{\bm{\nu}}+\bm{C}_{RB}(\bm{\nu})\bm{\nu}}_\text{rigid-body forces} + \\
 &\underbrace{\bm{M}_A\dot{\bm{\nu}}_r + \bm{C}_A(\bm{\nu}_r)\bm{\nu}_r + 
   \bm{D}(\bm{\nu}_r)\bm{\nu}_r}_\text{hydrodynamic forces} + 
 \underbrace{\bm{g}(\bm{\eta})}_\text{hydrostatic forces} \\
@@ -418,7 +425,7 @@ To approximate the motion of a \color{red}surface\color{black}vehicle in the oce
 \label{e:fossenmodel}
 \end{split}
 \end{equation}
-\color{red} ***should velocity for Mrb and Crb be relative velocity? see 8.147 in Fossen 2011 (pg 223). \color{black} where
+where
 \begin{IEEEeqnarray}{rCl}\IEEEyesnumber\label{e:estate}
     \bm{\eta} & = & [x, y, z, \phi, \theta, \psi]^T \IEEEyessubnumber \\
     \bm{\nu}  & = & [u, v, w, p, q, r]^T \IEEEyessubnumber
@@ -454,7 +461,8 @@ where, according to \citet{fossen11handbook} we can assume $N_{\dot{v}} = Y_{\do
 
 The surge, sway, yaw components of our model match the maneuvering model used by \citet{sarda16station}. For the heave, roll, pitch components, we follow the six degree-of-freedom coupled motion manuevering model presented by \citet{fossen11handbook} that only contains the diagonal terms for these components. As noted by \citet{fossen94guidance}, the off-diagonal elements of the added mass matrix, $\bm{M}_{A}$ will be small compared to the diagonal elements for most hullforms.
 
-Once the added mass terms to include in the model for $\bm{M}_{A}$ are selected, IMLAY\citet{imlay} has derived the Coriolis-centripetal added mass terms that result. The Coriolis-centripetal added mass matrix is expressed using the same hydrodynamic derivatives from $\bm{M}_{A}$. The resultant matrix is \color{black}
+
+Once the added mass terms to include in the model for $\bm{M}_{A}$ are selected, \citet{imlay61complete} has derived the Coriolis-centripetal added mass terms that result. The Coriolis-centripetal added mass matrix is expressed using the same hydrodynamic derivatives from $\bm{M}_{A}$. The resultant matrix is \color{black}
 \begin{multline}% ***need to fix formatting of matrix to stop spillage
   \medmath{
     \bm{C}_{A}(\bm{\nu}_r)=
@@ -473,7 +481,7 @@ Once the added mass terms to include in the model for $\bm{M}_{A}$ are selected,
   }
 \end{multline}
 
-\color{red} Since the terms of the maneuvering portion of our unified model are chosen to match those of \citet{sarda16station}, we simply used their theoretical expressions to estimate the values for $X_{\dot{u}}$, $Y_{\dot{v}}$, $N_{\dot{r}}$, and $Y_{\dot{r}}$. To estimate the added mass terms in the seakeeping portion of our model we used the previous work of GREENHOW \citet{greenhow} involving the study of added mass and damping of partially submerged horizontal cylinders in heave and sway. From their work we were able to directly estimate the heave added mass, $Z_{\dot{w}}$, by assuming that each pontoon could be represented by a circular cylinder. For the roll and pitch added mass, we assumed that half of this added mass acted at half the beam, for roll, and a quarter of the length, for pitch.\color{black}
+\color{red} Since the terms of the maneuvering portion of our unified model are chosen to match those of \citet{sarda16station}, we simply used their theoretical expressions to estimate the values for $X_{\dot{u}}$, $Y_{\dot{v}}$, $N_{\dot{r}}$, and $Y_{\dot{r}}$. To estimate the added mass terms in the seakeeping portion of our model we used the previous work of \citet{greenhow88added} involving the study of added mass and damping of partially submerged horizontal cylinders in heave and sway. From their work we were able to directly estimate the heave added mass, $Z_{\dot{w}}$, by assuming that each pontoon could be represented by a circular cylinder. For the roll and pitch added mass, we assumed that half of this added mass acted at half the beam, for roll, and a quarter of the length, for pitch.\color{black}
 
 The hydrodynamic damping includes forces due to radiation-induced potential damping, skin friction, wave drift damping, vortex shedding and lifting forces \citep{fossen11handbook,krishnamurthy05modeling}.  These effects are aggregated in the hydrodynamic damping matrix 
 \begin{equation}
@@ -515,9 +523,9 @@ and
 
 \color{red} As discussed in \citet{fossen11handbook}, for a surface vehicle, the linear damping matrix captures predominately two effects, viscous skin-friction damping and potential damping. In the maneuvering degrees-of-freedom, the viscous component of the linear damping term becomes the dominant damping contribution for vehicles traveling at low speed. In the seakeeping degrees of freedom, the radiation-induced potential damping component is important instead, since these motions by a surface vehicle produce significant radiated waves. The potential damping for these degrees-of-freedom is important regardless of the forward speed. Unlike the horizontal plane, the vertical plane motions have restoring forces or moments and consequently occur at their natural frequencies which affects the speed of these motions more than the vehicle forward speed.
 
-Our linear damping matrix, $\bm{D}_l$, contains terms to capture both of these effects. The maneuvering degrees-of-freedom terms, $X_{u}$, $Y_{v}$, and $N_{r}$, capture the low-speed skin-friction damping the vehicle experiences and were included in the linear damping matrix used by \citet{sarda16station}. To estimate these terms we use the theoretical expressions presented by them. Their model also contained the off-diagonal terms, $Y_{r}$ and $N_{v}$. Since we are utilizing their model we also include those terms and use the expressions they provided to estimate them. The remaining maneuvering off-diagonal terms are assumed to be negligible. The seakeeping degrees-of-freedom terms, $Z_{w}$, $K_{p}$, and $M_{q}$, capture the radiation-induced potential damping the vehicle experiences. To estimate these terms we used the potential damping results from GREENHOW \citet{greenhow} for a heaving partially submerged horizontal cylinder. The roll and pitch damping values assumed that half this damping occurred at the same length scale as used for the added mass estimates. All the seakeeping off-diagonal terms should be negligible and are not included in our model.
+Our linear damping matrix, $\bm{D}_l$, contains terms to capture both of these effects. The maneuvering degrees-of-freedom terms, $X_{u}$, $Y_{v}$, and $N_{r}$, capture the low-speed skin-friction damping the vehicle experiences and were included in the linear damping matrix used by \citet{sarda16station}. To estimate these terms we use the theoretical expressions presented by them. Their model also contained the off-diagonal terms, $Y_{r}$ and $N_{v}$. Since we are utilizing their model we also include those terms and use the expressions they provided to estimate them. The remaining maneuvering off-diagonal terms are assumed to be negligible. The seakeeping degrees-of-freedom terms, $Z_{w}$, $K_{p}$, and $M_{q}$, capture the radiation-induced potential damping the vehicle experiences. To estimate these terms we used the potential damping results from \citet{greenhow88added} for a heaving partially submerged horizontal cylinder. The roll and pitch damping values assumed that half this damping occurred at the same length scale as used for the added mass estimates. All the seakeeping off-diagonal terms should be negligible and are not included in our model.
 
-\citet{fossen11handbook} also highlighted that for a surface vehicle the nonlinear damping matrix, with its cross-flow damping terms, becomes the dominant damping contribution at high speed for the maneuvering degrees-of-freedom. Since we want our vehicle model to include a wide range of surface vehicles and operating conditions, we have included these nonlinear damping terms in our unified model. However, since the \wamv{} is predominately a low speed vehicle, when we apply our unified model specifically to the \wamv{}, we set the $Y_{v|v|}$ and $N_{r|r|}$ terms to zero. We would also normally set $X_{u|u|}$ to zero as well for the \wavm{} but since \citet{sarda16station} already experimentally determined the value, there is no extra effort required to keep the term.\color{black}
+\citet{fossen11handbook} also highlighted that for a surface vehicle the nonlinear damping matrix, with its cross-flow damping terms, becomes the dominant damping contribution at high speed for the maneuvering degrees-of-freedom. Since we want our vehicle model to include a wide range of surface vehicles and operating conditions, we have included these nonlinear damping terms in our unified model. However, since the \wamv{} is predominately a low speed vehicle, when we apply our unified model specifically to the \wamv{}, we set the $Y_{v|v|}$ and $N_{r|r|}$ terms to zero. We would also normally set $X_{u|u|}$ to zero as well for the \wamv{} but since \citet{sarda16station} already experimentally determined the value, there is no extra effort required to keep the term.\color{black}
 
 This approximation of the hydrodynamic effects is implemented as a parameterized Gazebo plugin.  The user defines the characteristics of the vessel under test through a vessel-specific configuration file that includes the hydrodynamic derivatives.  During each time step of the simulation, the plugin is executed with access to the state of the vessel and environment.  The hydrodynamic force terms in \eqref{e:fossenmodel} are calculated based on this state information and the user-defined vessel characteristics.  The resulting force and moment values are then applied to the vessel through the Gazebo application programming interface (API) for inclusion in the next iteration of the physics engine.
 
@@ -716,10 +724,15 @@ The VRX simulation is implemented as a set of Gazebo plugins, object models (vis
 \section*{Acknowledgments}
 This project was supported in part by the Department of the Navy, Office of Naval Research.  The VRX simulator is an open source project that welcomes community contributions.  We thank all the contributors for their time and energy.  A current list of contributors is maintained at \url{https://bitbucket.org/osrf/vrx/wiki/Contributors}.
 
-This article extends prior work by the authors in the same subject \citep{bingham19toward} by improving the environmental disturbance models (wind and waves) to increase physical fidelity, refining the surface vessel manuevering and seakeeping model, \color{red} performing a number of seakeeping and maneuvering vehicle response verification tests,\color{black} and reporting the outcome of the first virtual robotics competition.
+This article extends prior work by the authors in the same subject \citep{bingham19toward} by improving the environmental disturbance models (wind and waves) to increase physical fidelity, refining the surface vessel manuevering and seakeeping model, \color{red} performing a number of seakeeping and maneuvering vehicle response verification tests, \color{black} and reporting the outcome of the first virtual robotics competition.
 
 \bibliographystyle{frontiersinSCNS_ENG_HUMS} 
+
+\ifoverleaf
 \bibliography{bbing_master}
+\else
+\bibliography{../latexlib/bib/bbing_master}
+\fi
 
 \end{document}
 
