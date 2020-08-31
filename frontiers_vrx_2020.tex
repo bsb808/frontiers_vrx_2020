@@ -62,8 +62,8 @@
 %
 \begin{document}
 
-%\overleaffalse
-\overleaftrue
+\overleaffalse
+%\overleaftrue
 
 % A few math shortcuts
 \input{defs}
@@ -268,14 +268,14 @@ which we evaluate numerically. This relationship is pre-computed and used as a l
 \subsection{Wind Modeling}\label{s:wind_model}
 Wind is a significant disturbance for objects at the sea surface. We consider the total wind speed $V_w(t)$ consisting of the sum of the constant mean wind speed ($\bar{v}$) and stochastic, zero-mean, variable wind speed ($v_g(t)$) due to turbulence and gusting, i.e., $V_w(t)=\bar{v}+v_g(t)$.
 
-Spectral representations of ocean wind environments are common and generally model the variable component of wind speed as a wide-sense stationary, Gaussian stochastic process.  Typical models of wind over water include \citet{harris71nature}, \citet{forristall88wind} and \citet{ochi13wind}. \citet{cole18reactive} showed that the Forristall and Ochi and Shin models are in agreement, while the Harris model underestimates the spectral content.  While the implementation is not specific to any one spectral model of stochastic wind, for illustration purposes we use the Forristall wind spectra.  The form of the one-sided spectra is \citet{olesen84modelling} blunt model for micrometeorology, where Forristall showed that normalizing the one-sided spectrum by the variance ($\sigma$) produced improved experimental agreement:
+Spectral representations of ocean wind environments are common and generally model the variable component of wind speed as a wide-sense stationary, Gaussian stochastic process.  Typical models of wind over water include \citet{harris71nature}, \citet{forristall88wind} and \citet{ochi13wind}. \citet{cole18reactive} showed that the Forristall and Ochi and Shin models are in agreement, while the Harris model underestimates the spectral content.  While the implementation is not specific to any one spectral model of stochastic wind, for illustration purposes we use the Forristall wind spectra.  \color{blue}We demonstrate the employment of the nondimensional, one-sided blunt model for micrometeorology from \citet{olesen84modelling}.  \citet{forristall88wind} found that this blunt model produced a better fit of the empirical mesurements than the alternative pointed model, also proposed by \citet{olesen84modelling}.  Furthermore, \citet{forristall88wind} showed that normalizing the one-sided spectrum by the variance ($\sigma$) produced improved experimental agreement.  The resulting dimensionless spectrum is expressed as 
 \begin{equation}
-  \widetilde{S}_f(f) = \frac{S_f(f)\,f}{\sigma^2}  = \frac{ A f^*}{( 1 + B f^*)^{5/3}}.
+  \widetilde{S}_f(f) = \frac{S_f(f)\,f}{\sigma^2}  = \frac{ A f^*}{( 1 + B f^*)^{5/3}},
     \label{e:forristall}
     \end{equation}
-    In this dimensionless form $f$ is the oscillation frequency in \unit[]{Hz} and $f^*$ is the standard nondimenstional frequency from atmospheric boundary layer studies,
+    \color{black}where $f$ is the oscillation frequency in \unit[]{Hz} and $f^*$ is the standard nondimenstional frequency from atmospheric boundary layer studies,
 \begin{equation}
-  f^* = \frac{f \, z}{\bar{v}(z)},
+  f^* = \frac{f \, z}{\bar{v}(z)}
 \end{equation}
 where $z$ is the height and $\bar{v}(z)$ is the mean wind speed as a function of height. The constants $A$ and $B$ are chosen to fit specific observational data.  We use the mean coefficients from of $A=42.0$ and $B=63.0$, as reported by \citet{forristall88wind}  These values satisfy the constraint $A=(2/3)B$, necessary so that the variance of the stochastic process is $\sigma^2$, i.e.,
 \begin{equation}
@@ -296,7 +296,11 @@ f^*_p = \frac{3}{2B}.
   \label{f:forristall_norm}
 \end{figure}
 
-For generating physically meaningful wind time series simulations it is necessary to take into account the physical dimesions of the spectra.  We consider a constant height of $z=\unit[10]{m}$ and mean wind velocity at that height $\bar{v}(z=10)=\bar{v}_{10}$.  Figure~\ref{f:forristall_dim} illustrates how mean wind speed affects the generated spectra. 
+For generating physically meaningful wind time series simulations it is necessary to take into account the physical dimesions of the spectra.  We consider a reference altitude\footnote{\color{blue}
+  The reference altitude of $z=\unit[10]{m}$ is a conventional, standard location for atmospheric models and measurements measurments, e.g., \citet{hsu04estimating,myrhaug07wind,mann98wind}. The model can be applied at other values of altitude where by substituting the desired height, $z$, into (\ref{e:profile10}).
+}
+\color{black}
+of $z=\unit[10]{m}$ and mean wind velocity at that height $\bar{v}(z=10)=\bar{v}_{10}$.  Figure~\ref{f:forristall_dim} illustrates how mean wind speed affects the generated spectra. 
 \begin{figure}[hbt!]
   \centering
   \includegraphics[width=\SFc\textwidth]{forristall_dim.png}
