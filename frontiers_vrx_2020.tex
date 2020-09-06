@@ -70,7 +70,7 @@
 %
 % set the figure default size
 \newcommand{\SF}{0.7}
-\newcommand{\SFb}{0.45}
+\newcommand{\SFb}{0.48}
 \newcommand{\SFPic}{0.45}
 \newcommand{\SFPlot}{0.45}
 \newcommand{\SFc}{0.5}
@@ -220,7 +220,7 @@ The frequency sampling is $\Delta\omega$, the upper cut-off frequency, $\omega_u
 Example spectra are shown in \figref{f:pm} to illustrate the ability to independently specify the characteristic period (frequency) and wave height of the desired wave field.
 \begin{figure}[hbt!]
   \centering
-  \includegraphics[width=\SFc\textwidth]{images/pm_spectra_2.png}
+  \includegraphics[width=\SFc\textwidth]{src/pm_spectra_2.png}
   \caption{Two-parameter Pierson-Moskowitz wave spectrum shown as a function of wave period for a series of peak period ($T_pz$) values, using two different wave height gains ($K_H$).}
   \label{f:pm}
 \end{figure} 
@@ -273,7 +273,7 @@ Spectral representations of ocean wind environments are common and generally mod
   \widetilde{S}_f(f) = \frac{S_f(f)\,f}{\sigma^2}  = \frac{ A f^*}{( 1 + B f^*)^{5/3}},
     \label{e:forristall}
     \end{equation}
-    \color{black}where $f$ is the oscillation frequency in \unit[]{Hz} and $f^*$ is the standard nondimenstional frequency from atmospheric boundary layer studies,
+    \color{black}where $f$ is the oscillation frequency in \unit[]{Hz} and $f^*$ is the standard nondenominational frequency from atmospheric boundary layer studies,
 \begin{equation}
   f^* = \frac{f \, z}{\bar{v}(z)}
 \end{equation}
@@ -291,19 +291,19 @@ f^*_p = \frac{3}{2B}.
 %\end{equation}
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=\SFc\textwidth]{forristall_norm.png}
+  \includegraphics[width=\SFc\textwidth]{src/forristall_norm.png}
   \caption{Forristall normalized spectrum.}
   \label{f:forristall_norm}
 \end{figure}
 
-For generating physically meaningful wind time series simulations it is necessary to take into account the physical dimesions of the spectra.  We consider a reference altitude\footnote{\color{blue}
-  The reference altitude of $z=\unit[10]{m}$ is a conventional, standard location for atmospheric models and measurements measurments, e.g., \citet{hsu04estimating,myrhaug07wind,mann98wind,brown91over}. The model can be applied at other values of altitude where by substituting the desired height, $z$, into (\ref{e:profile10}).
+For generating physically meaningful wind time series simulations it is necessary to take into account the physical dimensions of the spectra.  We consider a reference altitude\footnote{\color{blue}
+  The reference altitude of $z=\unit[10]{m}$ is a conventional, standard location for atmospheric models and measurements measurements, e.g., \citet{hsu04estimating,myrhaug07wind,mann98wind,brown91over}. The model can be applied at other values of altitude where by substituting the desired height, $z$, into (\ref{e:profile10}).
 }
 \color{black}
 of $z=\unit[10]{m}$ and mean wind velocity at that height $\bar{v}(z=10)=\bar{v}_{10}$.  Figure~\ref{f:forristall_dim} illustrates how mean wind speed affects the generated spectra. 
 \begin{figure}[hbt!]
   \centering
-  \includegraphics[width=\SFc\textwidth]{forristall_dim.png}
+  \includegraphics[width=\SFc\textwidth]{src/forristall_dim.png}
   \caption{Dimensional Forristall spectra with unit variance. }
   \label{f:forristall_dim}
 \end{figure}
@@ -349,10 +349,10 @@ where $g$ is the acceleration of gravity; $\alpha = [0.013, 0.0185]$ has been fo
 %\end{equation}
 %where $c_p$ is the phase velocity of the dominant wave and $c_p/v_*$ describes wave age \citep{myrhaung09effect}.  An example of the functional relationship for (\ref{e:waveage}) is provided in \citep{volkov01dependence}.
 
-Without loss of generality, we numerically solve for $V_{*}$ by combining (\ref{e:profile10}) and (\ref{e:charnock}) with $\alpha= 0.0144$ for values of $v_{10} = [4, 21]\unit[]{m/s}$ \citep{garratt77review}.  The resulting values are illustrated in Figure~\ref{f:wind_consts}.
+Without loss of generality, we numerically solve for $v_{*}$ by combining (\ref{e:profile10}) and (\ref{e:charnock}) with $\alpha= 0.0144$ for values of $v_{10} = \unit[4--21]{m/s}$ \citep{garratt77review}.  The resulting values are illustrated in Figure~\ref{f:wind_consts}.
 \begin{figure}[hbt!]
   \centering
-  \includegraphics[width=\SFc\textwidth]{wind_consts.png}
+  \includegraphics[width=\SFc\textwidth]{src/wind_consts.png}
   \caption{Sea surface roughness and friction velocity as a function of mean wind speed.}
   \label{f:wind_consts}
 \end{figure}
@@ -438,7 +438,7 @@ are the position and velocity vectors respectively for surge, sway, heave, roll,
 
 Traditionally, surface vessel models are separated into \emph{maneuvering} models (representing the surge, sway and yaw degrees-of-freedom) and \emph{seakeeping} models (representing the heave, pitch and roll degrees-of-freedom). For the purposes of supporting the development of autonomy, it is important that the unified simulation model include \emph{both} maneuvering and seakeeping degrees-of-freedom. The maneuvering aspects of the model influence the vessel steering and control portion of the autonomy solution. The inclusion of the seakeeping aspect of the model is critical for exercising the sensory perception portion of the autonomy solution.
 
-Our approach to formulating both portions of our unified model is identical. We seek the lowest fidelity representation possible for each that is able to achieve the correct type of dynamic response but not necessarily the correct magnitude of that particular response. For a maneuvering surface vessel, the hydrodynamic terms, particularly the damping terms, play a critical role in the type of resultant motion \color{red} since the hydrostatic terms do not act in the horizontal plane. On the other hand, the seakeeping degrees-of-freedom are dominated by the hydrostatic and wave excitation forces. Even without nondiagonal added-mass and nonlinear damping terms in these degrees-of-freedom, the vehicle model still produces oscillatory motion which induces sensor changes that can impact perception. By neglecting these terms, our model will typically produce larger motion responses, but it will not change the kind of response the simulation produces. For example, the lack of a nonlinear damping term for the roll degree of freedom will potentially result in overly large roll angles in response to wave encounters, but the dominant restoring moment from the hydrostatic term is present.\color{black}
+Our approach to formulating both portions of our unified model is identical. We seek the lowest fidelity representation possible for each that is able to achieve the correct type of dynamic response but not necessarily the correct magnitude of that particular response. For a maneuvering surface vessel, the hydrodynamic terms, particularly the damping terms, play a critical role in the type of resultant motion \color{red} since the hydrostatic terms do not act in the horizontal plane. On the other hand, the seakeeping degrees-of-freedom are dominated by the hydrostatic and wave excitation forces. Even without non-diagonal added-mass and nonlinear damping terms in these degrees-of-freedom, the vehicle model still produces oscillatory motion which induces sensor changes that can impact perception. By neglecting these terms, our model will typically produce larger motion responses, but it will not change the kind of response the simulation produces. For example, the lack of a nonlinear damping term for the roll degree of freedom will potentially result in overly large roll angles in response to wave encounters, but the dominant restoring moment from the hydrostatic term is present.\color{black}
 
 Our intended use of the VRX simulation, as described in this article, does not justify the additional complexity and challenges associated with incorporating the neglected hydrodynamic terms into either portion of our unified model. Finally, it is important to note that the unified model formulation presented here is intended for a small unmanned surface vehicle. When modeling different vehicles, such as unmanned underwater vehicles, the model may need to be altered to include additional hydrodynamic terms. This would dependent on the specific vehicle geometry and any appendages it contained.%
 %The motion of a vessel is approximated in simulation by estimating each of the constituent forces in \eqref{e:fossenmodel} at each time step of the simulation. The rigid body components are simulated using the Gazebo physics engine.  The remaining constituents are simulated using the model components described below.
@@ -463,7 +463,7 @@ X_{\dot{u}} & 0 & 0 & 0 & 0 & 0 \\
 \end{equation}
 where, according to \citet{fossen11handbook} we can assume $N_{\dot{v}} = Y_{\dot{r}}$ for the \wamv{} since it is a slow moving surface ship.
 
-The surge, sway, yaw components of our model match the maneuvering model used by \citet{sarda16station}. For the heave, roll, pitch components, we follow the six degree-of-freedom coupled motion manuevering model presented by \citet{fossen11handbook} that only contains the diagonal terms for these components. As noted by \citet{fossen11handbook}, the off-diagonal elements of the added mass matrix, $\bm{M}_{A}$ will be small compared to the diagonal elements for most hullforms.
+The surge, sway, yaw components of our model match the maneuvering model used by \citet{sarda16station}. For the heave, roll, pitch components, we follow the six degree-of-freedom coupled motion maneuvering model presented by \citet{fossen11handbook} that only contains the diagonal terms for these components. As noted by \citet{fossen11handbook}, the off-diagonal elements of the added mass matrix, $\bm{M}_{A}$ will be small compared to the diagonal elements for most hullforms.
 
 
 Once the added mass terms to include in the model that make up $\bm{M}_{A}$ are chosen, the derivation by \citet{imlay61complete} provides the Coriolis-centripetal added mass terms that result. The Coriolis-centripetal added mass matrix is expressed using the same hydrodynamic derivatives from $\bm{M}_{A}$. The resultant matrix is
@@ -610,7 +610,7 @@ The propulsion system consists of a set of vessel-mounted thrusters to implement
 
 \begin{figure}[hbt!]
   \centering
-  \includegraphics[width=\FigWidth\textwidth]{images/thruster_annote.png}
+  \includegraphics[width=\FigWidth\textwidth]{thruster_annote.png}
   \caption{Illustration of propulsion forces for a two-thruster configuration.  Two independent forces are applied to the virtual body as indicated by the red arrows.  The angle of the each thruster relative the mounting point can also be controlled to allow for vectored thrust, as indicated by the green arcs.}
   % Moved to comment: "This image needs work."
   \label{f:thrust}
@@ -630,7 +630,7 @@ where $T$ is the thrust in Newtons; $x$ is the commanded effort; and $A$, $K$, $
 To illustrate this process we specify the GLF thrust mapping to approximate the  steady-state bollard-pull experiments reported by \citet{sarda16station}.  To identify the GLF parameters, a Nelder-Mean simplex optimization was performed to minimize the squared error between the model and the GLF expressions \eqref{e:glf} as a function of the GLF parameters.  The results are shown in \figref{f:fit}.
 \begin{figure}[h]
   \centering
-  \includegraphics[width=\SFc\textwidth]{images/wamv_glf_annote2.png}
+  \includegraphics[width=\SFc\textwidth]{src/wamv_glf_annote.png}
   \caption{Generalized logistic function fit of empirical  bollard-pull thrust performance data from \citep{sarda16station}.}
   \label{f:fit}
 \end{figure}
@@ -640,38 +640,38 @@ This approach to simulating propulsion force approximates the steady-state non-l
 \color{red}
 \section{Model and Simulation Verification}
 %
-To confirm that our vehicle model captures the correct \emph{behavior} of the \wamv{}, we have simulated a number of standard maneuvering and seakeeping tests in the VRX environment. The purpose of these tests is not to validate our model against the actual \wamv{} but rather to confirm that our model captures realistic behavior and the correct dependencies on the wave and propulsion inputs. This means that for incident waves, we expect a measurable but bounded motion response that increases as the wave height increases. For the propulsion input we expect a thrust difference between the two propellers to cause the vehicle to turn with the turning radius decreasing as thrust differential increases.
+To confirm the proposed vehicle model captures the correct behavior of a vehicle with characteristics similar to the \wamv{}, we simulated a number of standard maneuvering and seakeeping tests in the VRX environment. The purpose of these tests is to verify that our model captures realistic behavior and the correct dependencies on the wave and propulsion inputs. This means that for incident waves, we expect a measurable but bounded motion response that increases as the wave height increases. For the propulsion input we expect a thrust difference between the two propellers to cause the vehicle to turn with the turning radius decreasing as thrust differential increases.
 
-The first set of simulations were a series of seakeeping tests. The \wamv{} response was simulated using our vehicle and incident wave field models. In the simulation the \wamv{} had no controller setpoints and almost no thrust. The incident wave field was monochromatic, longcrested waves, that had a period of \unit[6]{s} and wave heights that varied from \unit[0]{m} up to \unit[2]{m} across the set of simulation runs. Assuming the deep water dispersion relationship, these waves had a wavelength of approximately \unit[56]{m} and thus a wavelength-to-vehicle length of roughly $14$. The largest wave has a wave steepness, wave height to wave length ratio, of $1/30$ which is typical for seakeeping tests. These conditions were chosen because they represent a wave environment ranging from a Sea State $1$ to $4$. (reference one of your sea state table papers???)
+The first set of simulations were a series of seakeeping tests. The \wamv{} response was simulated using our vehicle and incident wave field models. In the simulation the \wamv{} had no controller setpoints and almost no thrust. The incident wave field was monochromatic, longcrested waves, that had a period of \unit[6]{s} and wave heights that varied from \unit[0]{m} up to \unit[2]{m} across the set of simulation runs. Assuming the deep water dispersion relationship, these waves had a wavelength of approximately \unit[56]{m} and thus a wavelength-to-vehicle length of roughly $14$. The largest wave has a wave steepness, wave height to wave length ratio, of $1/30$ which is typical for seakeeping tests. These conditions were chosen because they represent a wave environment ranging from a Sea State $1$ to $4$ \citep{bales83designing}.
 
 Figure~\ref{f:head_seas} shows the amplitude of the oscillatory heave, pitch, and roll responses of the \wamv{} to head seas under these wave and operating conditions.
-%
+% Note - data for these figures is on teams - https://nps01.sharepoint.com/:f:/s/FieldRoboticsLaboratory/EvhPhkP0rWBFrHNoL44iYKkBfpukUBrKjpvRfRwhS8hXHA?e=ze1rHR
 \begin{figure}[h]
   \centering
-  \includegraphics[width=\SFc\textwidth]{images/2020_08_25_head_seas_001.png}
+  \includegraphics[width=\SFc\textwidth]{src/2020_08_25_head_seas_001.png}
   \caption{Simulation results for wave induced motion in head seas.}
   \label{f:head_seas}
 \end{figure}
 %
-Each simulation was run for \unit[60]{s} resulting in roughly $10$ wave encounters. The amplitude of the oscillatory motion response in each degree-of-freedom was determined using only the last XX wave encounters to avoid being influenced by the initial transients. The roll and pitch amplitude is plotted using the left y-axis scale in the figure and the heave amplitude is plotted against the right y-axis scale. Since these cases correspond to head seas, we expect to see an increasing amplitude in pitch and heave and very little response in roll. The figure shows that the pitch and heave amplitude responses of the \wamv{} increased as the wave height increased. Furthermore, the responses show that the \wamv{} is contouring to the passing waves as typically happens when the wavelength is considerably longer than the vehicle length. This means that the pitch angle matches the local slope of the wave and the heave displacement matches the wave amplitude. For the largest wave simulated, the maximum wave slope, given by $ka$, is \unit[6.4]{$^\circ$} and matches the simulated amplitude of the oscillating pitch. The heave amplitude response of the \wamv{} for this wave equals \unit[1]{m} which is the wave amplitude. Finally, the roll amplitude remains very small as the wave height increases. There is a small response since the vehicle does not remain perfectly aligned in a head seas condition, instead yawing slightly since there is no heading controller during these simulations.
+Each simulation was run for \unit[60]{s} of simulation time, which was verified to be sufficient time for the dynamics to reach steady-state, resulting in roughly $10$ wave encounters. The amplitude of the oscillatory motion response in each degree-of-freedom was determined using only the last 2 wave encounters to avoid being influenced by the initial transients. The roll and pitch amplitude is plotted using the left y-axis scale in the figure and the heave amplitude is plotted against the right y-axis scale. Since these cases correspond to head seas, we expect to see an increasing amplitude in pitch and heave and very little response in roll. The figure shows that the pitch and heave amplitude responses of the \wamv{} increased as the wave height increased. Furthermore, the responses show that the \wamv{} is contouring to the passing waves as typically happens when the wavelength is considerably longer than the vehicle length. This means that the pitch angle matches the local slope of the wave and the heave displacement matches the wave amplitude. For the largest wave simulated, the maximum wave slope, given by $ka$, is \unit[6.4]{$^\circ$} and matches the simulated amplitude of the oscillating pitch. The heave amplitude response of the \wamv{} for this wave equals \unit[1]{m} which is the wave amplitude. Finally, the roll amplitude remains very small as the wave height increases. There is a small response since the vehicle does not remain perfectly aligned in a head seas condition, instead yawing slightly since there is no heading controller during these simulations.
 
 Figure~\ref{f:beam_seas} shows the heave, pitch, and roll response amplitudes of the \wamv{} again but this time for beam seas. The formatting of the figure axes and data is the same as Fig.~\ref{f:head_seas}.%
 %
 \begin{figure}[h]
   \centering
-  \includegraphics[width=\SFc\textwidth]{images/2020_08_25_beam_seas_001.png}
+  \includegraphics[width=\SFc\textwidth]{src/2020_08_25_beam_seas_001.png}
   \caption{Simulation results for wave induced motion in beam seas.}
   \label{f:beam_seas}
 \end{figure}
 %
 Since this is a beam seas wave environment, we expect to see a vehicle response in roll now instead of pitch while still seeing a heave response. The figure shows that the simulated roll and heave amplitudes of the oscillatory response of the \wamv{} increase as the wave height increases and that the vehicle motion is again contouring to the passing wave. The ratio of the pitch amplitude to the wave slop is again unity as is the ratio of the heave amplitude to wave amplitude. Finally, consistent with a beam sea, the pitch response of the \wamv{} is much smaller than the roll response.
 
-The second set of simulations were a series of maneuvering tests involving turning circles. Our vehicle model was used to simulate the \wamv{} response to a thrust differential in calm water. By having the thrust command of the port and starboard propellers be different, a yawing moment is experienced by the vehicle and it should follow a circular trajectory. In each simulation, the magnitude of the overall thrust command was set to 0.75\% of the maximum. This made the surge velocity roughly constant across the simulations. Each simulation was run for \unit[60]{s}, so the distance travelled by the vehicle is approximately equal for each run shown.
+The second set of simulations were a series of maneuvering tests involving turning circles. Our vehicle model was used to simulate the \wamv{} response to a thrust differential in calm water. By having the thrust command of the port and starboard propellers be different, a yawing moment is experienced by the vehicle and it should follow a circular trajectory. In each simulation, the magnitude of the overall thrust command was set to 0.75\% of the maximum. This made the surge velocity roughly constant across the simulations. Each simulation was run for \unit[60]{s}, so the distance traveled by the vehicle is approximately equal for each run shown.
 
 Figure~\ref{f:manuevering} shows the \wamv{} trajectory for each of the simulations. The legend shows what the thrust command was for the port and starboard propeller for each run, with each run denoted by a different color. The trajectories clearly show the correct behavior that a thrust differential causes the \wamv{} to perform a turn. Furthermore, the model also captures the correct behavior that as the thrust differential increases, the \wamv{} undergoes a tighter turn and has a larger yaw rate.
 \begin{figure}[h]
   \centering
-  \includegraphics[width=\SFc\textwidth]{images/2020_08_25_manuevering_000.png}
+  \includegraphics[width=\SFc\textwidth]{src/2020_08_25_manuevering_000.png}
   \caption{Simulation results for maneuvering in calm water.}
   \label{f:manuevering}
 \end{figure}
@@ -736,7 +736,7 @@ The VRX simulation is implemented as a set of Gazebo plugins, object models (vis
 \section*{Acknowledgments}
 This project was supported in part by the Department of the Navy, Office of Naval Research.  The VRX simulator is an open source project that welcomes community contributions.  We thank all the contributors for their time and energy.  A current list of contributors is maintained at \url{https://bitbucket.org/osrf/vrx/wiki/Contributors}.
 
-This article extends prior work by the authors in the same subject \citep{bingham19toward} by improving the environmental disturbance models (wind and waves) to increase physical fidelity, refining the surface vessel manuevering and seakeeping model, \color{red} performing a number of seakeeping and maneuvering vehicle response verification tests, \color{black} and reporting the outcome of the first virtual robotics competition.
+This article extends prior work by the authors in the same subject \citep{bingham19toward} by improving the environmental disturbance models (wind and waves) to increase physical fidelity, refining the surface vessel maneuvering and seakeeping model, \color{red} performing a number of seakeeping and maneuvering vehicle response verification tests, \color{black} and reporting the outcome of the first virtual robotics competition.
 
 \bibliographystyle{frontiersinSCNS_ENG_HUMS} 
 

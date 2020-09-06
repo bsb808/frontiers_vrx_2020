@@ -1,4 +1,5 @@
-
+pubfig
+%close all
 % Forristall
 A = 42.0;
 B = 63.0;
@@ -7,7 +8,7 @@ f = logspace(-6,3,1000);
 %f = linspace(0,1,20000);
 z = 10;
 VV = [1, 2, 4, 8, 16];
-
+%VV = [1];
 figure(1);
 clf();
 figure(2);
@@ -60,7 +61,7 @@ for ii = 1:length(VV)
     
     
     figure(2)
-    semilogx(fstar,ss);
+    semilogx(fstar,ss,'linewidth',2);
     hold on
     
 
@@ -69,13 +70,13 @@ end
 
 figure(1)
 ax1 = subplot(212);
-ylabel('Dimensional Spectra: $S(f)$ [(m/s)$^2$/Hz]','interpreter','latex')
+ylabel('Dimensional $S(f)$ [(m/s)$^2$/Hz]','interpreter','latex')
 grid on
-xlabel('Dimensional Frequency, $f$ [Hz]','interpreter','latex')
+xlabel('Dimensional Freq. $f$ [Hz]','interpreter','latex')
 ax2 = subplot(211);
 grid on
 %ylabel('Normalized Spectra: $f \, S(f)/\sigma^2$ [n/a]','interpreter','latex')
-ylabel('Normalized Spectra: $\tilde{S}(f)$ [n/a]','interpreter','latex')
+ylabel('Normalized $\tilde{S}(f)$ [n/a]','interpreter','latex')
 legend(lstr,'interpreter','latex','location','south')
 linkaxes([ax1, ax2],'x')
 xlim(10.^[-5,1])
@@ -126,11 +127,14 @@ s = rng(42);
 % Generate phases for all runs
 phases = rand(N,1)*2*pi;
 
-figure(4);
+newcolors = {'red','#009900','blue'};
+    
+f4 = figure(4);
 clf()
-figure(5);
+colororder(f4,newcolors)
+f5 = figure(5);
 clf()
-figure(6);
+f6 = figure(6);
 clf()
 
 % Values for mean velocity
@@ -160,7 +164,7 @@ for ii = 1:length(VZ)
     w = 1;
     sigma = 3*w*(0.00076 * vz^2 +0.0304*vz);
 
-    lstr{ii} = sprintf('$v_{10}$=%4.1f m/s, $\\sigma$=%4.2f m/s',vz,sigma);%,q(ii));
+    lstr{ii} = sprintf('$v_{10}$=%4.1f m/s, \n  $\\sigma$=%4.2f m/s',vz,sigma);%,q(ii));
     sigma_est = std(yy1)
     
     figure(4)
@@ -169,14 +173,16 @@ for ii = 1:length(VZ)
 %     else
 %         yyaxis right
 %     end
-    subplot(5,1,2:3)
-    plot(tt1,yy1/sigma);
+    %subplot(5,1,2:3)
+    subplot(2,1,1)
+    p1 = plot(tt1,yy1/sigma,'linewidth',1.2);
     hold on
     
     % Non-normalized
     %figure(6)
-    subplot(5,1,4:5)
-    hh(ii) = plot(tt1,yy1);
+    %subplot(5,1,4:5)
+    subplot(2,1,2)
+    hh(ii) = plot(tt1,yy1,'linewidth',1.2);
     hold on
     
     % Sanity check
@@ -204,23 +210,43 @@ grid on
 
 
 figure(4)
-subplot(5,1,2:3)
+%subplot(5,1,2:3)
+subplot(2,1,1)
 TT = 2*60;
 xlim([0,TT])
 grid on;
-ylabel('$v_g(t)/\sigma$ [n/a]','interpreter','latex')
+yl1 = ylabel('$v_g(t)/\sigma$ [n/a]','interpreter','latex')
 %figure(6)
-subplot(5,1,4:5)
+subplot(2,1,2)
 xlim([0,TT])
 grid on;
-ylabel('$v_g(t)$ [m/s]','interpreter','latex')
-xlabel('Time [s]')
-hLegend = subplot(5,1,1)
-posLegend = get(hLegend,'Position');
+yl2 = ylabel('$v_g(t)$ [m/s]','interpreter','latex')
+xl = xlabel('Time [s]')
+%hLegend = subplot(5,1,1)
+%posLegend = get(hLegend,'Position');
 %leg = legend(hlegend,hh,lstr,'interpreter','latex');
-leg = legend(hh,lstr,'interpreter','latex');
-axis(hLegend,'off');
-set(leg,'Position',posLegend);
+subplot(2,1,1)
+%leg = legend(hh,lstr,'interpreter','latex');
+leg = legend(lstr,'interpreter','latex');
+leg.ItemTokenSize = [10,18*2];
+%axis(hLegend,'off');
+%set(leg,'Position',posLegend);
+%set(leg,'Position',posLegend);
 
-%figure(7)
-%plot(f1,'.')
+% Set font size
+labelFont = 16;
+tickFont = 12;
+ax = ancestor(p1,'axes');
+yrule = ax.YAxis;
+yrule.FontSize = tickFont;
+xrule = ax.XAxis;
+xrule.FontSize = tickFont;
+yl1.FontSize = labelFont;
+xl.FontSize = labelFont;
+yl2.FontSize = labelFont;
+
+%%
+set(leg,'FontSize',14);
+leg.ItemTokenSize = [25,18];
+set(leg,'Orientation','horizontal')
+set(leg,'Position',[0.175, 0.46, 0.75, 0.1])
