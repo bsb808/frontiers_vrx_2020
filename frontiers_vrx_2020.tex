@@ -358,7 +358,6 @@ where $\beta = [0.013, 0.0185]$ has been found to be consistent with empirical w
 %\end{equation}
 %where $c_p$ is the phase velocity of the dominant wave and $c_p/v_*$ describes wave age \citep{myrhaung09effect}.  An example of the functional relationship for (\ref{e:waveage}) is provided in \citep{volkov01dependence}.
 
-
 Without loss of generality, we numerically solve for $v_{*}$ by combining (\ref{e:profile10}) and (\ref{e:charnock}) with $\alpha= 0.0144$ for values of $v_{10} = \unit[4--21]{m/s}$ \citep{garratt77review}.  The resulting values are illustrated in Figure~\ref{f:wind_consts}.
 \begin{figure}[hbt!]
   \centering
@@ -382,12 +381,11 @@ S_f(f) \left[ 3 \, w (0.00076 \, \bar{v}_{10}^2 + 0.0304 \, \bar{v}_{10})\right]
 \frac{(42.0)10.0/\bar{v}_{10}}{\left(1+\frac{63.0 (10.0) f}{\bar{v}_{10}}\right)^{5/3}}.
 \label{e:dimensional}
 \end{multline}
-\color{red}
-(( reviewer's comment was half correct. A is 42.0 as it supposed to be. added missing angular frequency. ))
-\color{black}
 
-
-\vspace{3em}
+%\color{red}
+%(( reviewer's comment was half correct. A is 42.0 as it supposed to be. added missing angular frequency. ))
+%\color{black}
+%\vspace{3em}
 
 \subsubsection{Generating Wind Time Series}
 The wind model is described by the PSD in (\ref{e:dimensional}) which allows us to generate sample functions of the underlying stochastic process using a summation of cosines approach similar to the implementation of the Gerstner waves.  The combined turbulence and gusting wind speed is expressed as
