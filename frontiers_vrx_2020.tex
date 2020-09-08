@@ -124,7 +124,7 @@ These new capabilities are applicable to a wide range of ocean robotic scenarios
 
 Although simulation is never a substitute for physical field experimentation, the VRX simulator offers sufficient fidelity to enable developers to prototype new solutions, with the aim of transitioning smoothly to on-water deployments for tuning and refinement.  The models used in the simulator are designed so that the \emph{kind} of response experienced in simulation is equivalent to that experienced in the field, even if the \emph{degree} of the response is different.  The result is a simulation environment simple enough to execute faster than real-time simulations with sufficient fidelity to guide choices on the kind of autonomy necessary for the salient challenges of the ocean environment.
 
-% Perhaps to informal.
+% Perhaps too informal.
 %The simulator design adheres to the following rubric: autonomy that does not work in simulated world will not work in the physical world, and autonomy that does work in the physical world will work in the simulated world.
 
 \subsection{Contributions}
@@ -326,7 +326,7 @@ In the Forristall model the variance of the wind speed is not a simple function 
 \label{e:sigratio}
 \end{equation}
 where $w$ is determined from the predicted ocean significant wave height $H_n$ and the observed significant wave height $H_s$ as
-\begin{equation}
+\begin{equation}https://www.overleaf.com/project/5f184f4eab4df8000136d420
 w = 1 + \frac{H_s-H_n}{2 H_n}.
 \label{e:wavefactor}
 \end{equation}
@@ -347,10 +347,7 @@ Multiple models of the relationship between sea surface roughness ($z_0$) and fr
 \frac{z_0 g }{v_*^2} = \beta
 \label{e:charnock}
 \end{equation}
-where $\beta = [0.013, 0.0185]$ has been found to be consistent with empirical wind profiles over the ocean \citep{garratt77review,toba90wave}.  
-\color{red}
-(($\alpha$ has already been used at equation 5.))
-\color{black}
+where $\beta = [0.013, 0.0185]$ has been found to be consistent with empirical wind profiles over the ocean \citep{garratt77review,toba90wave}.  -
 
 %Alternatively this relationship can be considered to be a function of the degree of wave development, or wave age,
 %\begin{equation}
@@ -481,7 +478,7 @@ where, according to \citet{fossen11handbook} we can assume $N_{\dot{v}} = Y_{\do
 The surge, sway, yaw components of our model match the maneuvering model used by \citet{sarda16station}. For the heave, roll, pitch components, we follow the six degree-of-freedom coupled motion maneuvering model presented by \citet{fossen11handbook} that only contains the diagonal terms for these components. As noted by \citet{fossen11handbook}, the off-diagonal elements of the added mass matrix, $\bm{M}_{A}$, will be small compared to the diagonal elements for most hullforms.
 
 
-Once the added mass terms to include in the model that make up $\bm{M}_{A}$ are chosen, the derivation by \citet{imlay61complete} provides the Coriolis-centripetal added mass terms that result. The Coriolis-centripetal added mass matrix is expressed using the same hydrodynamic derivatives from $\bm{M}_{A}$. The resultant matrix is
+Once the added mass terms that make up $\bm{M}_{A}$ are chosen, the derivation by \citet{imlay61complete} provides the Coriolis-centripetal added mass terms that result. The Coriolis-centripetal added mass matrix is expressed using the same hydrodynamic derivatives from $\bm{M}_{A}$. The resultant matrix is
 \begin{multline}% ***need to fix formatting of matrix to stop spillage
     \medmath{\bm{C}_{A}(\bm{\nu}_r)=
     \left[ 
@@ -548,7 +545,7 @@ and
   }
 \end{multline}
 
-\color{red} As discussed in \citet{fossen11handbook}, for a surface vehicle, the linear damping matrix captures predominately two effects, viscous skin-friction damping and potential damping. In the maneuvering degrees-of-freedom, the viscous component of the linear damping term becomes the dominant damping contribution for vehicles traveling at low speed. In the seakeeping degrees of freedom, the radiation-induced potential damping component is important instead, since these motion components by a surface vehicle produce significant radiated waves. The potential damping for these degrees-of-freedom is important regardless of the forward speed. Unlike the horizontal plane, the vertical plane motions have restoring forces or moments and consequently occur at their natural frequencies which affects the speed of these motions more than the vehicle forward speed.
+\color{red} As discussed in \citet{fossen11handbook}, for a surface vehicle, the linear damping matrix captures predominately two effects, viscous skin-friction damping and potential damping. In the maneuvering degrees-of-freedom, the viscous component of the linear damping term becomes the dominant damping contribution for vehicles traveling at low speed. In the seakeeping degrees of freedom the radiation-induced potential damping component is important because these motion components by a surface vehicle produce significant radiated waves. The potential damping for these degrees-of-freedom is important regardless of the forward speed. Unlike the horizontal plane, the vertical plane motions have restoring forces or moments and consequently occur at their natural frequencies which affects the speed of these motions more than the vehicle forward speed.
 
 Our linear damping matrix, $\bm{D}_l$, contains terms to capture both of these effects. The maneuvering degrees-of-freedom terms, $X_{u}$, $Y_{v}$, and $N_{r}$, capture the low-speed skin-friction damping the vehicle experiences and were included in the linear damping matrix used by \citet{sarda16station}. To estimate these terms we use the theoretical expressions presented by them. Their model also contained the off-diagonal terms, $Y_{r}$ and $N_{v}$. Since we are utilizing their model we also include those terms and use the expressions they provided to estimate them. The remaining maneuvering off-diagonal terms are assumed to be negligible. The seakeeping degrees-of-freedom terms, $Z_{w}$, $K_{p}$, and $M_{q}$, capture the radiation-induced potential damping the vehicle experiences. To estimate these terms we used the potential damping results from \citet{greenhow88added} for a heaving partially submerged horizontal cylinder. The roll and pitch damping values assumed that half this damping occurred at the same length scales as used for the added mass estimates. All the seakeeping off-diagonal terms should be negligible and are not included in our model.
 
