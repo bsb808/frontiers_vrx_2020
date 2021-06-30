@@ -62,8 +62,8 @@
 %
 \begin{document}
 
-\overleaffalse
-%\overleaftrue
+%\overleaffalse
+\overleaftrue
 
 % A few math shortcuts
 \input{defs}
@@ -103,13 +103,18 @@
 %
 \begin{abstract}
   \section{}
-  Increasingly, simulation is a critical capability for development and evaluation of new robotic applications.  New designs and algorithms can be tested rapidly and at low cost in repeatable environmental conditions, reducing the time, cost and risk of physical deployment.   For much of the robotics community, the open source Gazebo robot simulator has emerged as the \emph{de facto} standard for prototyping and testing robotic systems.   While Gazebo offers strong support for terrestrial, aerial and space robotics applications, less support is available for marine applications involving vehicles at and below the water surface.  This paper describes the Virtual RobotX (VRX) simulation, a general purpose open source development and testing tool, based on Gazebo, capable of replicating the dynamics, environmental influences, sensor data and common tasks associated with unmanned surface vessel autonomy.  We highlight the application of these new capabilities using the VRX challenge reference implementation, a simulation-based robot competition designed to complement the physical Maritime RobotX Challenge.
+Physical and visual robotic simulation is a critical capability for autonomous vehicles in general and unmanned ocean surface vehicles in particular.  Because of time and cost constraints, it is often infeasible to use real-world experiments alone to evaluate advances in navigation and perception for autonomous ocean vessels across the necessary space, time and environmental extents.  As a complement to on-water testing, simulation allows developers to parallelize longer duration evaluations, with a multitude of environmental conditions, to exercise algorithms and expose flaws in nominal conditions, as well as edge-cases.
+  
+For much of the robotics community, the open source Gazebo robot simulator has emerged as the \emph{de facto} standard for prototyping and testing robotic systems.   While Gazebo offers strong support for terrestrial, aerial and space robotics applications, less support is available for marine applications involving vehicles at and below the water surface.  This paper describes the Virtual RobotX (VRX) simulation, a general purpose open source development and testing tool, based on Gazebo, capable of replicating the dynamics, environmental influences, sensor data and common tasks associated with unmanned surface vessel autonomy.  We highlight the application of these new capabilities using the VRX challenge reference implementation, a simulation-based robot competition designed to complement the physical Maritime RobotX Challenge.
   \tiny
  \keyFont{ \section{Keywords:} simulation, robotics, ocean, unmanned surface vehicle, stochastic process} %All article types: you may provide up to 8 keywords; at least 5 are mandatory.
 \end{abstract}
 %
 \section{Introduction}
-The open source Virtual RobotX (VRX) simulator\footnote{\url{https://github.com/osrf/vrx}} is designed to support the development, testing and evaluation of unmanned surface vehicles operating in authentic ocean environments.  VRX extends the Gazebo robot simulator through the addition of new domain-specific elements including environmental models, vessel dynamics representations, sensor emulation and general purpose ocean object models.  The new capabilities featured in the VRX simulator include:
+For self-driving cars and aviation applications, the need for simulation toolsets is well documented, e.g., \citet{fadaie2019state}.  Demonstrating correctness of navigation and perception algorithms, as well as verifying safety constraints can require hundreds of millions of miles of testing \citet{shalevshwartz2018formal}; clearly intractable for hardware-only experimentation.  In these domains, commercial and open-source simulation capabilities are a critical aspect of the rapid development of new applications, e.g., Waymo's Carcraft \citet{etherington2019waymo} and Microsoft's AirSim \citet{shah2017airsim}.
+
+
+The open source Virtual RobotX (VRX) simulator\footnote{\url{https://github.com/osrf/vrx}} is designed to support the development, testing and evaluation of unmanned surface vehicle autonomy algorithms operating in authentic ocean environments.  VRX extends the Gazebo robot simulator through the addition of new domain-specific elements including environmental models, vessel dynamics representations, sensor emulation and general purpose ocean object models.  The new capabilities featured in the VRX simulator include:
 \begin{itemize}
 \item Wave representations, based on ocean spectra, to influence vessel motion, visual rendering and sensor feedback.
 \item A visual representation of the water surface, including approximation of reflection and refraction.
