@@ -1,0 +1,841 @@
+%  LaTeX support: latex@mdpi.com 
+%  For support, please attach all files needed for compiling as well as the log file, and specify your operating system, LaTeX version, and LaTeX editor.
+
+%=================================================================
+\documentclass[jmse, article, submit, pdftex, moreauthors]{Definitions/mdpi} 
+
+%--------------------
+% Class Options:
+%--------------------
+
+% For posting an early version of this manuscript as a preprint, you may use "preprints" as the journal. Changing "submit" to "accept" before posting will remove line numbers.
+
+%----------
+% submit
+%----------
+% The class option "submit" will be changed to "accept" by the Editorial Office when the paper is accepted. This will only make changes to the frontpage (e.g., the logo of the journal will get visible), the headings, and the copyright information. Also, line numbering will be removed. Journal info and pagination for accepted papers will also be assigned by the Editorial Office.
+
+
+
+%=================================================================
+% MDPI internal commands - do not modify
+\firstpage{1} 
+\makeatletter 
+\setcounter{page}{\@firstpage} 
+\makeatother
+\pubvolume{1}
+\issuenum{1}
+\articlenumber{0}
+\pubyear{2023}
+\copyrightyear{2023}
+%\externaleditor{Academic Editor: Firstname Lastname}
+\datereceived{ } 
+\daterevised{ } % Comment out if no revised date
+\dateaccepted{ } 
+\datepublished{ } 
+%\datecorrected{} % For corrected papers: "Corrected: XXX" date in the original paper.
+%\dateretracted{} % For corrected papers: "Retracted: XXX" date in the original paper.
+\hreflink{https://doi.org/} % If needed use \linebreak
+%\doinum{}
+%\pdfoutput=1 % Uncommented for upload to arXiv.org
+
+%=================================================================
+% Add packages and commands here. The following packages are loaded in our class file: fontenc, inputenc, calc, indentfirst, fancyhdr, graphicx, epstopdf, lastpage, ifthen, float, amsmath, amssymb, lineno, setspace, enumitem, mathpazo, booktabs, titlesec, etoolbox, tabto, xcolor, colortbl, soul, multirow, microtype, tikz, totcount, changepage, attrib, upgreek, array, tabularx, pbox, ragged2e, tocloft, marginnote, marginfix, enotez, amsthm, natbib, hyperref, cleveref, scrextend, url, geometry, newfloat, caption, draftwatermark, seqsplit
+% cleveref: load \crefname definitions after \begin{document}
+
+\usepackage{acronym}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amsmath}
+\usepackage{amsmath, amssymb,longtable,dcolumn, nccmath}
+\usepackage{balance}
+\usepackage{bm}
+%\usepackage[caption=false,font=footnotesize]{subfig}
+%\usepackage{cite}
+\usepackage{colortbl}
+\usepackage{csvsimple}
+%\usepackage{enumitem} % also breaks things
+\usepackage{fancyhdr}
+%\usepackage{fixltx2e}
+%\usepackage{fullpage}
+\usepackage{graphicx} 
+%\usepackage{hyperref}  % Seems to break things
+\usepackage{IEEEtrantools}
+%\usepackage{indentfirst}
+%\usepackage{multirow}
+%\usepackage{natbib}
+\usepackage{pdfpages}
+%\usepackage{stfloats}  % Written by Sigitas Tolusis
+%\usepackage{subcaption}
+%\usepackage{subfigure}
+\usepackage{tabularx}
+\usepackage{times}
+\usepackage{units}
+\usepackage{siunitx}
+
+% For Frontiers
+\usepackage{url,hyperref,lineno,microtype,subcaption}
+%\usepackage[onehalfspacing]{setspace}
+%\usepackage{xcolor}
+%\linenumbers
+
+% Load this package last - for non-line-break hyphens (e.g., WAM-V)
+% See https://tex.stackexchange.com/questions/103608/how-to-force-latex-not-to-break-the-line-after-a-hyphen
+\usepackage[shortcuts]{extdash}
+
+%=================================================================
+% Please use the following mathematics environments: Theorem, Lemma, Corollary, Proposition, Characterization, Property, Problem, Example, ExamplesandDefinitions, Hypothesis, Remark, Definition, Notation, Assumption
+%% For proofs, please use the proof environment (the amsthm package is loaded by the MDPI class).
+
+%=================================================================
+% Full title of the paper (Capitalized)
+\Title{Mobile Robot Simulation for Unmanned Surface Vehicles in Ocean Environments}
+
+% MDPI internal command: Title for citation in the left column
+\TitleCitation{Mobile Robot Simulation for Unmanned Surface Vehicles in Ocean Environments}
+
+% Author Orchid ID: enter ID or remove command
+\newcommand{\orcidauthorA}{0000-0000-0000-000X} % Add \orcidA{} behind the author's name
+%\newcommand{\orcidauthorB}{0000-0000-0000-000X} % Add \orcidB{} behind the author's name
+
+% Authors, for the paper (add full first names)
+\Author{Brian Bingham\,$^{1,*}$, Carlos Ag{\"u}ero\,$^{2}$, Michael McCarrin\,$^{1}$, Joseph Klamo\,$^{1}$, Joshua Malia\,$^{1}$, Woen-Sug Choi\,$^{3}$, Kevin Allen\,$^{4}$, Tyler Lum\,$^{5}$, Marshall Rawson\,$^{4}$ and Rumman Waqar\,$^{6}$}
+
+%\longauthorlist{yes}
+
+% MDPI internal command: Authors, for metadata in PDF
+\AuthorNames{Brian Bingham, Carlos Ag{\"u}ero, Michael McCarrin, Joseph Klamo, Joshua Malia, Woen-Sug Choi, Kevin Allen\,$^{4}$, Tyler Lum, Marshall Rawson and Rumman Waqar}
+
+% MDPI internal command: Authors, for citation in the left column
+\AuthorCitation{Bingham, B. et al.}
+% If this is a Chicago style journal: Lastname, Firstname, Firstname Lastname, and Firstname Lastname.
+
+% Affiliations / Addresses (Add [1] after \address if there is only one affiliation.)
+\address{$^{1}$Naval Postgraduate School, $^{2}$Open Robotics, $^{3}$Korea Maritime and Ocean University, $^{4}$University of Florida, $^{5}$University of British Columbia, $^{6}$University of London}
+
+% Contact information of the corresponding author
+\corres{Correspondence: bbingham@nps.edu}
+
+% Current address and/or shared authorship
+\firstnote{Monterey, CA} 
+%\secondnote{These authors contributed equally to this work.}
+% The commands \thirdnote{} till \eighthnote{} are available for further notes
+
+%\simplesumm{} % Simple summary
+
+%\conference{} % An extended version of a conference paper
+
+% Abstract (Do not insert blank lines, i.e. \\) 
+\abstract{Simulation is a critical capability for development of autonomous vehicles in general and unmanned ocean surface vehicles in particular.  Because of time and cost constraints, it is often infeasible to use real-world experiments alone to test functionality and evaluate performance for autonomous ocean vessels across the necessary extents of space, time and environmental conditions.  As a complement to on-water testing, simulation enables a variety of development activities such as testing across a variety of synthetic environmental conditions, evaluation of many long duration scenarios in parallel and execution of statistical sampling within a complex design space.  
+For much of the robotics community the open source Gazebo robot simulator has emerged as the \emph{de facto} standard for prototyping and testing robotic systems.   While Gazebo offers strong support for terrestrial, aerial and space robotics applications, less support is available for marine applications involving vehicles at and below the water surface.  This paper describes the Virtual RobotX (VRX) simulation, a general purpose open source development and testing tool, based on Gazebo, capable of replicating the dynamics, environmental influences, sensor data and common tasks associated with unmanned surface vessel autonomy.  This article highlights the application of these new capabilities using the VRX challenge reference implementation, a simulation-based robot competition designed to complement the physical Maritime RobotX Challenge.}
+
+% Keywords
+\keyword{simulation, robotics, ocean, unmanned surface vehicle, stochastic process} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+% A few math shortcuts
+\input{defs}
+
+% Set the figure default sizes
+\newcommand{\SF}{0.7}
+\newcommand{\SFb}{0.48}
+\newcommand{\SFPic}{0.45}
+\newcommand{\SFPlot}{0.45}
+\newcommand{\SFc}{0.7} %{0.5}
+% Just a lazy way of setting the figure width (percentage of text width)
+% 0.7 works well for 1 column
+% 0.4 works well for 2 column
+\newcommand{\FigWidth}{\SFc}
+
+\newcommand{\figref}[1] {Fig.~\ref{#1}}
+
+% To prevent line break
+\newcommand{\wamv}{WAM\=/V}
+
+% Use this one for the draft version
+\newcommand{\scaleOneTwo}[2] {\scalebox{#1}}
+% Use this one for the two column version
+%\newcommand{\scaleOneTwo}[2] {\scalebox{#2}}
+
+% Graphics for this paper
+\graphicspath{{./images/}{./src/}}
+
+\section{Introduction}
+For self-driving cars and aviation applications, the need for simulation toolsets is well documented, e.g., \cite{fadaie2019state}.  Demonstrating correctness of navigation and perception algorithms, as well as verifying safety constraints can require hundreds of millions of miles of testing \cite{shalevshwartz2018formal}, clearly intractable for hardware-only experimentation.  Commercial and open-source simulation capabilities are a critical aspect of the rapid development of new applications in these domains, e.g., Waymo's Carcraft %\citet{etherington2019waymo} 
+and Microsoft's AirSim \cite{shah2017airsim}.
+
+
+Analogous to these terrestrial and aerial applications, the open source Virtual RobotX (VRX) simulator is designed to support the development, testing and evaluation of unmanned surface vehicle autonomy algorithms operating in authentic ocean environmental conditions.  VRX extends the Gazebo robot simulator through the addition of domain-specific elements including environmental models, vessel dynamics representations, sensor emulation and general purpose ocean object models.  The new capabilities featured in the VRX simulator include:
+\begin{itemize}
+\item Wave representations, based on ocean spectra, to influence vessel motion, visual rendering and sensor feedback,
+\item Visual representation of the water surface, including approximation of reflection and refraction,
+\item Wind simulation based on spectral representation of wind speed and empirical models of wind on vessel motion,
+\item Parameterized six degree-of-freedom surface vessel model,
+\item Approximation of buoyancy forces on geometric objects to simulate floating objects,
+\item Implementation of 3D lidar model that includes interaction with the water surface and
+\item Representation of propulsion system with a configurable, parameterized non-linear thrust model.
+\end{itemize}
+
+These new capabilities are applicable to a wide range of ocean robotic scenarios.  The specific reference implementation, which serves as a demonstration of these new features, is the VRX challenge, a simulation-based robot competition designed to complement the physical Maritime RobotX Challenge.  This competition uses a common vessel platform---the wave adaptive modular vessel (\wamv{})---and includes a series of robotic tasks meant to stimulate innovation in maritime autonomy.  To support this competition, the VRX simulator provides a 3D visual model of the \wamv{} platform, an approximation of its dynamic and hydrodynamic characteristics, a collision model, non-linear static thruster behavior, and coefficients to characterize wind effects.   The propulsion and sensor configuration is parameterized to allow users to easily specify the exact configuration of the vessel under test.  In addition the VRX simulator provides models (visual, collision and dynamic) of the elements used in competition tasks, including navigation aids, buoys, obstacles and docks.  
+
+Although simulation is never a substitute for physical field experimentation, the VRX simulator offers sufficient fidelity to enable developers to prototype new solutions, with the aim of efficient transition to on-water deployments for tuning and refinement.  The models used in the simulator are designed so that the \emph{kind} of response experienced in simulation is equivalent to that experienced in the field, even if the \emph{degree} of the response is different.  The result is a simulation environment simple enough to execute faster than real-time simulations with sufficient fidelity to guide choices on the kind of autonomy necessary for the salient challenges of the ocean environment.
+
+% Perhaps too informal.
+%The simulator design adheres to the following rubric: autonomy that does not work in simulated world will not work in the physical world, and autonomy that does work in the physical world will work in the simulated world.
+
+\subsection{Contributions}
+The contributions reported in this article are methods for virtually representing USV platforms and ocean environments with appropriate fidelity and within reasonable computational constraints. Collectively, these methods improve the simulation infrastructure applicable to development and evaluation of marine autonomy solutions, specifically motion control and sensor perception implementations. The contributions described in this article are as follows: 
+\begin{itemize}
+\item The formulation of a directional wave spectrum based on user-specified two-parameter Pierson-Moskowitz description and directional coefficients, pre-calculated for computational efficiency;
+\item A generalized method for stochastic wind generation via generic spectral representation, demonstrated by implementing a Forristall spectrum where wind speed variance approximated as a function of mean wind speed;
+\item A complete six degree-of-freedom vessel model, incorporating empirical coefficients for both maneuvering and seakeeping model parameters;
+\item A computationally efficient method for generating wave-induced forces on the vessel based on a physically relevant wave field model (environmental state) and the vessel state;
+ \item A technique for modeling non-linear propulsion forces based on bollard pull test data and generalized logistic functions and
+\item A description of the theory of operation for the key foundational techniques used in the existing freely available, active, open source virtual simulation project: \url{https://github.com/osrf/vrx}.
+\end{itemize}
+
+\subsection{Background and Related Work}
+
+\subsubsection{Extending Gazebo to Specific Domains}
+Gazebo was created in 2002 to support development of ground robot applications for indoor and outdoor environments \citep{koenig04design}. Since then Gazebo has become a mature open source project that is developed and relied upon by the global robotics community for a wide variety of applications. Gazebo employs a highly modular approach to provide the four key components needed for robot simulation.  
+\begin{enumerate}
+\item To resolve collision, contact, and reaction forces among rigid bodies, Gazebo supports the use of multiple physics engines.  
+\item Gazebo has an extensive library of common robot sensors, such as camera, laser, sonar, GPS, and IMU, as well as standard noise models that can be parameterized as needed.
+\item Gazebo supports multiple interfaces allowing users to interact programmatically with the simulation, including C++ (for writing plugins), a custom network transport, and Robot Operating System (ROS) messaging.  
+\item Gazebo includes a graphical interface that allows exploration and manipulation of the 3D simulated world.
+\end{enumerate}
+
+Gazebo has been extended to support a variety of domain-specific applications such as the DARPA Robotics Challenge (DRC) \citep{aguero15inside}, the NASA Space Robotics Challenge (SRC) \citep{hambuchen17nasa}, the DARPA Hand Proprioception \& Touch Interfaces (HAPTIX), the NIST Agile Robotics for Industrial Automation Competition (ARIAC), the DARPA Service Academies Swarm Challenge (SASC), the DARPA Robotic Servicing of Geosynchronous Satellites (RSGS) and NASA Lunar exploration \citep{allan19planetary}.
+
+\subsubsection{Simulating Ocean Robotics}
+Ocean robots operate at or below the water surface.  For underwater applications, many groups have recognized the need for simulation as part of the development process and a number have highlighted the unique challenges of marine simulations, particularly for underwater applications \citep{tosik16mars,henriksen16morse,watanabe15rock}.  Some of these simulations build upon the foundation of Gazebo, e.g.,  \citet{demarco15computationally} and \citet{manhaes16uuv} while others adopt different underlying simulation frameworks to emulate the dynamics.  An overview of the current technology is provided by \citet{cook14survey}.
+
+Less research has been reported on robotic simulation to support development of novel surface vessel applications and approaches.  The custom Autonomous Marine Surface Vessel Simulator (AMSVS) focuses on generating vision and lidar sensor data for a USV, using a simplified buoyancy model and an ad-hoc ocean surface model without propulsion or a wind model \citep{smith19high}.  This approach emphasizes generation of sensor data to test perception, but lacks sufficient fidelity to exercise control and motion planning.  Furthermore, the simulation is not open source or maintained. In contrast, recent work aimed at improved simulation of USV behavior in disaster scenarios has led to the development of the open source USV\_SIM, which integrates Gazebo-based USV simulation with off-line hydrological water current and computational fluid dynamics (CFD) wind simulations \citep{paravisi2019unmanned}.  This approach is specific to riverine environments near urban infrastructure (bridges and buildings), and requires running separate environmental simulations to generate the river and wind flow fields, then loading those solutions into the robotics simulator.
+
+%\color{Fuchsia}
+This article reports on important extensions to the authors' previous work on the VRX simulator \citep{bingham19toward}.  This work integrates a new micrometeorological wind model to generate physically meaningful stochastic wind speed for the purposes of testing and evaluating motion control in the presence of wind.  This article also presents a new formulation of that wind spectra description that is solely a function of mean wind speed. The six degree-of-freedom vessel model is refined through the addition three diagonal added mass terms for seakeeping and six off-diagonal terms in the Coriolis-centripetal added mass matrix.   While the type of vessel model remains unchanged from the previous work, the addition of these terms and the derivation of numerical values for these terms provides a more generalized solution to modeling USV maneuvering and seakeeping motion.  This article also presents additional provenance for the modeling done for a small USV in general and for the \wamv{} in particular.  Furthermore, the results of a series of simulation verification studies that illustrate model response, using the specific parameters of the \wamv, for seakeeping and maneuvering scenarios are presented.  Finally the artical includes illustration of the utility and impact of integrating these various elements through the VRX reference implementation to demonstrate the use of the simulator to support developing autonomy for a number of common ocean robotic tasks.
+%\color{black}
+
+\subsubsection{Wave Induced Forcing}
+The proposed approach to approximating wave induced motion uses evaluation of restoring forces at discrete locations along the vessel hull.  A similar approach is used by \citet{ueng08ship} to generate representative ship motion for the purposes of operator training in virtual reality.  A related method was used by \citet{sandaruwan12user} and validated using a higher fidelity, non-real-time model and experimental results.  This approach is even further simplified in \citet{yeo12simulating} to generate roll, pitch and heave motion by evaluating the wave height at just four locations along a mono-hull.   In this previous work the vessel hull is approximated as a cuboid and the water height is evaluated at $1 \times  1$ m grid points.  Single forces for heave, pitch and roll are obtained from the discrete height fields. Because of the geometry of the \wamv{}, a catamaran with approximately circular demi-hulls, the displacement can be calculated directly as a function of hull location relative to water height.  
+
+\section{Environment Modeling}
+A key aspect of extending the Gazebo robotics simulator to support ocean robotics is the ability to represent the influence of the ocean environment on the robotic system.  For USV applications the most important environmental influences are waves and wind.
+
+VRX uses a model-based approach where the models are based on spectral representations of the stochastic wave and wind environments.  Empirical environmental models are described as power spectral density (PSD) representations.  Time series realizations are generated from these PSD descriptions using a summations of cosines\citep{shinozuka91simulation}. Because wind and wave environments are often characterized by power spectra, this approach allows simulations to be tied directly to standard ocean environments with mature descriptions from oceanography.
+
+\subsection{Wave Modeling}\label{s:wave}
+The wave modeling approach adapts and extends the method described by \citet{thon00ocean} to represent ocean waves based on oceanographic statistical descriptions that are also visually realistic.  The model balances physical fidelity, visual realism and computational complexity.
+
+\subsubsection{Gerstner Waves}
+Gerstner waves, a common representation in computer graphics \citep{tessendorf99simulating,hinsinger02interactive}, represent the water surface as a trochoidal shape.  While closely related to a regular sinusoidal shape, Gerstner waves of larger amplitude exhibit sharper crests and broader troughs providing for additional visual realism.  The water surface is modeled using a summation of Gerstner waves where an undisturbed horizontal location is $\V{x}_0 = (x_0,y_0)$ with a vertical height of $\zeta_0 = 0$.  The wave field is represented as horizontal ($\V{x}$) and vertical ($\zeta$) displacements relative to this undisturbed location, and can be expressed as 
+\begin{IEEEeqnarray}{rcl}
+\IEEEyesnumber \label{e:gerstner} 
+ \V{x}(\V{x}_0,t) & = &  \V{x}_0 -  \sum_{n=0}^{N-1}q_n(\V{k}_n/k_n)A_n\sin{(\V{k}_n \cdot \V{x}_0 - \omega_n t + \phi_n)}   \IEEEyessubnumber  \label{e:gerstner_x} \\
+  \zeta(\V{x}_0,t) & = & \sum_{n=0}^{N-1}A_{n}\cos{(\V{k}_n \cdot \V{x}_0-\omega_n t + \phi_n)}  \IEEEyessubnumber \label{e:gerstner_h}
+\end{IEEEeqnarray}
+where each component wave has an associated amplitude ($A_n$), wavenumber ($k_n$), angular frequency ($\omega_n$), steepness ($q_n$) and random phase ($\phi_n$) distributed uniformly over the interval $[0,2\pi)$.
+
+The wave number and angular frequency can not be chosen independently since they are linked through a dispersion relationship. The linear, deep water dispersion relationship given by $\omega^2 = gk$, where $g$ is the acceleration of gravity, to constrain them. The wavevector ($\V{k}_n$) is a horizontal vector in the direction of travel with magnitude $k_i$. If desired, the wavelength, $\lambda$, can be determined using the wave number, $k$, since $\lambda=2\pi/k$. 
+
+A single steepness parameter ($q$) is specified between $[0.0,1.0]$ where a value of $q=0.0$ yields regular sinusoidal wave shapes and a value of $q=1.0$ yields maximum wave crest steepness.  The individual steepness values are constrained by $q_i = \min{(q,1/(k_i A_i))}$ to prevent loops forming in the wave crests, a phenomenon which is not physically realizable.
+
+\subsubsection{Wave Spectrum}
+If visual fidelity were the sole consideration, convincing wave fields could be generated by applying \eqref{e:gerstner} to a small set of subjectively selected component wave amplitudes and directions, but behavior of the simulated wave field would have little connection to a physical ocean environment.  One method to create component wave characteristics representative of a particular ocean and weather condition is to produce these parameters by sampling a parametric wave spectrum \citep{mastin87fourier,thon00ocean,frechot06realistic}.  The wave spectrum  $G(\omega)$ captures the mean energy in a wave field as a function of angular frequency ($\omega$).  A number of standard ocean spectra can be used to describe the wave field environment \citep{ittc02waves}.
+%In  \citep{frechot06realistic} a single-value Pierson-Moskowitz wave spectrum is sampled to generate the wave field.
+The single-value Pierson-Moskowitz spectrum represents a fully developed sea in deep water and depends upon specifying  the peak angular frequency ($\omega_p$) or the significant wave height ($H_s$) which are related by
+% If visual fidelity were the sole consideration, empirically selecting a small set of component wave amplitudes and directions for use in \eqref{e:gerstner} can generate qualitatively realistic wave fields, but with limited connection between the simulated wave field and the physical ocean environment.  One method to generate component wave characteristics representative of a particular ocean and weather condition is to generate these parameters by sampling a parametric wave spectrum \citep{mastin87fourier,thon00ocean,frechot06realistic}.  The wave spectrum  $G(\omega)$ captures the mean energy in a wave field as a function of angular frequency ($\omega$).  A number of standard ocean spectra can be used to describe the wave field environment \citep{ittc02waves}.  In  \citep{frechot06realistic} a single-value Pierson-Moskowitz wave spectrum is sampled to generate the wave field.  The Pierson-Moskowitz spectrum represents a fully developed sea in deep water and depends upon specifying  the peak angular frequency ($\omega_p$) or the significant wave height ($H_s$) which are related by
+\begin{equation}
+  H_s = \frac{0.161 \, g}{\omega_p^2}.
+  \label{e:pmh}
+\end{equation}
+
+%\color{red}
+%((constant value 0.162 leads to $\alpha=8.2\times10^-3$ at equation 5. since $\alpha=8.1\times10^-3$ is commonly known, the constant should better be 0.161.))
+%\color{black}
+
+
+For simulation the two-parameter Pierson-Moskowitz spectrum (often referred to as a Bretschneider spectrum) provides both physical relevance and user customizability while maintaining a simple formulation.  In the two-parameter formulation the wave height and angular frequency are independent, allowing the user to specify a much greater variety of environmental conditions such as those that occur in a developing seaway.  The two-parameter, one-sided spectrum, as a function of peak frequency and an independent significant wave height $\bar{H}_{s}$, is expressed as
+\begin{equation}
+  G_B(\omega) = \frac{1.25}{4} \left(\frac{\omega_p^4}{\omega^5}\right) (\bar{H}_{s})^2 \exp{\left[-\frac{5}{4} \left(\frac{\omega_p}{\omega}\right)^4\right]}.
+    \label{e:bs}
+\end{equation}
+For the external interface a user-specified non-dimensional gain value is introduced,
+\begin{equation}
+  K_H = \frac{\bar{H}_{s}}{H_s},
+  \label{e:K}
+\end{equation}
+as the ratio of desired significant wave height to the significant wave height from the one-parameter Pierson-Moskowitz spectrum~\eqref{e:pmh}.  The resulting expression for the simulated wave field is
+\begin{equation}
+  G_B(\omega) =  \left(K_H\right)^2 \frac{\alpha g^2}{\omega^5} \exp{\left[-\frac{5}{4} \left(\frac{\omega_p}{\omega}\right)^4\right]}
+  \label{e:pm_2}
+\end{equation}
+where $\alpha=8.1 \times 10^{-3}$.
+Based on this spectral representation the amplitude values for the summation of cosines in (\ref{e:gerstner}) is
+\begin{IEEEeqnarray}{C}
+\IEEEyesnumber\label{e:sim} \IEEEyessubnumber*
+A_n = (2 \, G_{B}(\omega_n)\Delta \omega)^{1/2},\label{e:amp} \\
+\omega_n = n \Delta \omega, \; n=0,1,2,...,N-1 \label{e:lrs}\\
+\Delta \omega = \omega_u / N.
+\end{IEEEeqnarray}
+The frequency sampling is $\Delta\omega$.  The upper cut-off frequency, $\omega_u$, is the frequency beyond which the PSD may be assumed to be zero.
+
+Example spectra are shown in \figref{f:pm} to illustrate the ability to independently specify the characteristic period (frequency) and wave height of the desired wave field.
+\begin{figure}[hbt!]
+  \centering
+  \includegraphics[width=\SFc\textwidth]{src/pm_spectra_2.png}
+  \caption{Two-parameter Pierson-Moskowitz wave spectrum shown as a function of wave period for a series of peak period ($T_p$) values, using two different wave height gains ($K_H$).}
+  \label{f:pm}
+\end{figure} 
+Once the spectrum is defined, the individual wave amplitude values are determined by sampling the wave spectrum according to \eqref{e:amp}.
+
+\subsubsection{Directional Spectra}
+The direction of wave components within the wave field is captured by following general approach described by \citet{frechot06realistic}, but improve the method by pre-calculating the relationship between wave characteristics (period, frequency, etc.) and directionality in order to reduce the computational demands of the simulation.
+
+The direction of wave travel can be taken into account using the directional wave spectrum expressed as
+\begin{equation}
+  E(\omega,\theta)=G(\omega)D(\omega,\theta)
+\end{equation}
+where $\theta$ represents the wave direction and $D(\omega,\theta)$ is the directional spreading function. %defined such that
+%\begin{equation}
+%  \int_{-\pi}^{\pi}E(\omega,\theta)d\theta = G(\omega)
+%\end{equation}
+%for all values of $\omega$.  
+
+The form of $D(\omega,\theta)$ is based on the empirical relations that were proposed by \citet{mitsuyasu75observations}.  The directionality is a function of the normalized frequency $\bar{\omega}=\omega/\omega_p$ and can be expressed as a function of the difference between the angle and the mean angle, $\Delta\theta = \theta_m-\theta$.  The directionality function is then
+\begin{equation}
+D(\bar{\omega},\Delta\theta) = N(s(\bar{\omega})) \cos{(\Delta\theta/2)}^{2s(\bar{\omega})}
+\end{equation}
+where the normalizing function
+\begin{equation}
+N(s(\bar{\omega})) = \left(\frac{1}{2\sqrt{\pi}}\right) \frac{\Gamma(s(\bar{\omega})+1)}{\Gamma(s(\bar{\omega})+1/2)}
+\end{equation}
+uses the gamma function $\Gamma()$ and the function
+\begin{equation}
+s(\bar{\omega}) = \left\{
+\begin{array}{ll}
+  17.01 \, \bar{\omega}^5 \,\, & \mathrm{if} \, \omega \leq \omega_p \\
+  17.01 \, \bar{\omega}^{-2.5}  \,\, & \mathrm{if} \, \omega > \omega_p
+\end{array}
+\right. .
+\end{equation}
+The shape of the directionality depends upon the component frequency. Spectral components near the peak frequency contain the majority of the wave energy and have a more narrow directional distribution, tending to travel in the mean direction.  Spectral components on either side of the peak frequency tend to have larger variation in direction of travel, in particular lower frequency (longer period) components have a wider distribution of directions than high frequency (shorter period) components.  
+
+The second moment is used to characterize the width of the directional spreading function, 
+\begin{equation}
+\mu_2(\bar{\omega}) = \int_{-\pi}^{\pi}(\Delta\theta)^2 D(\bar{\omega},\Delta\theta) d(\Delta\theta).
+\end{equation}
+This expression is evaluated numerically. This relationship is pre-computed and used as a lookup table for the component waves which make up the wave field.  For each wave component in \eqref{e:gerstner} the direction of the wavevector is determined by the user-specified mean direction and an additional random direction component.  This additional component is generated as a sample from a zero mean, normal distribution with a variance set equal to $\mu_2(\bar{\omega})$.  
+
+
+\subsection{Wind Modeling}\label{s:wind_model}
+Wind is a significant disturbance for objects at the sea surface. The total wind speed $V_w(t)$ consists of the sum of the constant mean wind speed ($\bar{v}$) and stochastic, zero-mean, variable wind speed ($v_g(t)$) due to turbulence and gusting, i.e., $V_w(t)=\bar{v}+v_g(t)$.
+
+Spectral representations of ocean wind environments are common and generally model the variable component of wind speed as a wide-sense stationary, Gaussian stochastic process.  Typical models of wind over water include \citet{harris71nature}, \citet{forristall88wind} and \citet{ochi13wind}. \citet{cole18reactive} showed that the Forristall and Ochi and Shin models are in agreement, while the Harris model underestimates the spectral content.  While the software implementation is not specific to any one spectral model of stochastic wind, the  Forristall wind spectra is implemented for the following illustration, specifically the nondimensional, one-sided blunt model for micrometeorology from \citet{olesen84modelling}.  \citet{forristall88wind} found that this blunt model produced a better fit of the empirical measurements than the alternative pointed model, also proposed by \citet{olesen84modelling}.  Furthermore, \citet{forristall88wind} showed that normalizing the one-sided spectrum by the variance ($\sigma$) produced improved experimental agreement.  The resulting dimensionless spectrum is expressed as 
+\begin{equation}
+  \widetilde{S}_f(f) = \frac{S_f(f)\,f}{\sigma^2}  = \frac{ A f^*}{( 1 + B f^*)^{5/3}},
+    \label{e:forristall}
+    \end{equation}
+%\color{black}
+where $f$ is the oscillation frequency in \unit[]{Hz} and $f^*$ is the standard nondenominational frequency from atmospheric boundary layer studies,
+\begin{equation}
+  f^* = \frac{f \, z}{\bar{v}(z)}.
+\end{equation}
+Here $z$ is the height and $\bar{v}(z)$ is the mean wind speed as a function of height. The constants $A$ and $B$ are chosen to fit specific observational data.  The mean coefficients $A=42.0$ and $B=63.0$, as reported by \citet{forristall88wind}, are employed for this example.  These values satisfy the constraint $A=(2/3)B$, necessary so that the variance of the stochastic process is $\sigma^2$, i.e.,
+\begin{equation}
+  \int_0^{\infty} S_f(f) df = \sigma^2.
+\end{equation}
+The Forristall normalized spectrum is illustrated in Figure~\ref{f:forristall_norm}.   The peak of the spectrum (\ref{e:forristall}) occurs at
+\begin{equation}
+f^*_p = \frac{3}{2B}.
+\end{equation}
+%so for a height of $z=\unit[10]{m}$ the dimensional peak frequency increases linearly with wind velocity,
+%\begin{equation}
+%f_p = \frac{3}{2Bz}\bar{v}_{10}.
+%\end{equation}
+\begin{figure}[hbt!]
+  \centering
+  \includegraphics[width=\SFc\textwidth]{src/forristall_norm.png}
+  \caption{Forristall normalized spectrum.}
+  \label{f:forristall_norm}
+\end{figure}
+
+For generating physically meaningful wind time series simulations it is necessary to take into account the physical dimensions of the spectra. 
+The reference altitude of $z=\unit[10]{m}$ is a conventional, standard location for atmospheric models and measurements, e.g., \citet{hsu04estimating,myrhaug07wind,mann98wind,brown91over}. The model can be applied at other altitudes by substituting the desired height, $z$, into (\ref{e:profile10}).
+
+%\color{black}
+of $z=\unit[10]{m}$ and mean wind velocity at that height $\bar{v}(z=10)=\bar{v}_{10}$.  Figure~\ref{f:forristall_dim} illustrates how mean wind speed affects the generated spectra. 
+\begin{figure}[hbt!]
+  \centering
+  \includegraphics[width=\SFc\textwidth]{src/forristall_dim.png}
+  \caption{Dimensional Forristall spectra with unit variance. }
+  \label{f:forristall_dim}
+\end{figure}
+The cutoff frequency $f_c$ for the dimensional spectra is the frequency for which $S_f(f_c) = 0.5 S_f(0)$.  In dimensionless and dimensional forms, the cutoff frequency is
+\begin{IEEEeqnarray}{rCl}\IEEEyesnumber\label{e:cutoff}
+  f^*_c & = & \frac{2^{3/5}-1}{B} \\
+  f_c & = & \frac{(2^{3/5}-1)\bar{v}(z)}{B\,z} \\
+      & = & (\num{8.19e-4}) \, \bar{v}_{10} %\; \mathrm{Hz}.
+  \end{IEEEeqnarray}
+
+\subsubsection{Wind speed variance}
+In the Forristall model the variance of the wind speed is not a simple function of the mean wind speed.  The ratio of the variance to the friction velocity ($v_*$) can be approximated as
+\begin{equation}
+\frac{\sigma}{v_*} = 3.0 w
+\label{e:sigratio}
+\end{equation}
+where $w$ is determined from the predicted ocean significant wave height $H_n$ and the observed significant wave height $H_s$ as
+\begin{equation}
+w = 1 + \frac{H_s-H_n}{2 H_n}.
+\label{e:wavefactor}
+\end{equation}
+For the purposes of this example developed sea condition is simulated with $H_s=H_n$.
+
+The friction velocity is determined by using the logarithmic boundary layer mean velocity profile
+\begin{equation}
+\bar{v}(z) = \frac{v_*}{\kappa}\ln{\left(\frac{z}{z_0}\right)}
+\label{e:profile}
+\end{equation}
+where the von Karman's constant is $\kappa=0.41$ and $z_0$ is the sea surface roughness.  It is common to re-write (\ref{e:profile}) at a reference altitude of $z=\unit[10]{m}$ and solve for the friction velocity
+\begin{equation}
+\left. v_* = \frac{\kappa \, \bar{v}(z)}{\ln(z/z_0)} \right|_{z=10} = \frac{\kappa \, \bar{v}_{10}}{\ln(10/z_0)}.
+\label{e:profile10}
+\end{equation}
+Multiple models of the relationship between sea surface roughness ($z_0$) and friction velocity ($v_*$) are available.  Based on dimensional analysis \citet{charnock55wind} proposed 
+\begin{equation}
+\frac{z_0 g }{v_*^2} = \beta
+\label{e:charnock}
+\end{equation}
+where $\beta = [0.013, 0.0185]$ has been found to be consistent with empirical wind profiles over the ocean \citep{garratt77review,toba90wave}.  -
+
+%Alternatively this relationship can be considered to be a function of the degree of wave development, or wave age,
+%\begin{equation}
+%\frac{z_0 g }{v_*^2} = \mathsf{f} (c_p/v_*)
+%\label{e:waveage}
+%\end{equation}
+%where $c_p$ is the phase velocity of the dominant wave and $c_p/v_*$ describes wave age \citep{myrhaung09effect}.  An example of the functional relationship for (\ref{e:waveage}) is provided in \citep{volkov01dependence}.
+
+Without loss of generality, $v_{*}$ is solved for numerically by combining (\ref{e:profile10}) and (\ref{e:charnock}) with $\alpha= 0.0144$ for values of $v_{10} = \unit[4\text{--}21]{m/s}$ \citep{garratt77review}.  The resulting values are illustrated in Figure~\ref{f:wind_consts}.
+\begin{figure}[hbt!]
+  \centering
+  \includegraphics[width=\SFc\textwidth]{src/wind_consts.png}
+  \caption{Sea surface roughness and friction velocity as a function of mean wind speed.}
+  \label{f:wind_consts}
+\end{figure}
+A quadratic polynomial is fit to the sea surface roughness prediction via nonlinear regression, enforcing that the y-intercept be zero.  The resulting relationship, also shown in Figure~\ref{f:wind_consts}, is
+\begin{equation}
+v_* = 0.00076 \, \bar{v}_{10}^2 + 0.0304 \, \bar{v}_{10}
+\label{e:fit}
+\end{equation}
+which allows expression of the wind speed variance as a function of mean wind speed,
+\begin{equation}
+\sigma^2 = \left[ 3 \, w (0.00076 \, \bar{v}_{10}^2 + 0.0304 \, \bar{v}_{10})\right]^2.
+\label{e:fit2}
+\end{equation}
+Substituting (\ref{e:forristall}) and the constants described above into (\ref{e:fit2})  allows us to express the dimensional Forristall spectrum for wind speed at $z=\unit[10.0]{m}$ altitude as a function of only the mean wind speed,
+\begin{equation}
+S_f(f) = \left[ 3 \, w (0.00076 \, \bar{v}_{10}^2 + 0.0304 \, \bar{v}_{10})\right]^2 
+\frac{(42.0)10.0/\bar{v}_{10}}{\left(1+\frac{63.0 (10.0) f}{\bar{v}_{10}}\right)^{5/3}}.
+\label{e:dimensional}
+\end{equation}
+
+%\color{red}
+%(( reviewer's comment was half correct. A is 42.0 as it supposed to be. added missing angular frequency. ))
+%\color{black}
+%\vspace{3em}
+
+\subsubsection{Generating Wind Time Series}
+The wind model is described by the PSD in (\ref{e:dimensional}) which allows generation of sample functions of the underlying stochastic process using a summation of cosines approach similar to the implementation of the Gerstner waves.  The combined turbulence and gusting wind speed is expressed as
+\begin{equation}
+  v_g(t) = \sqrt{2} \sum_{n=0}^{M-1} A_n \cos(\omega_n t + \phi_n)
+  \label{e:sumcosines}
+\end{equation}
+where
+\begin{IEEEeqnarray}{C}
+\IEEEyesnumber\label{e:sim2} \IEEEyessubnumber*
+A_n = \left(\frac{1}{2 \pi} S_{f}(f_n = \omega_n / (2 \pi)) \Delta \omega\right)^{1/2},  \label{e:an} \\
+\omega_n = n \Delta \omega, \; n=0,1,2,...,N-1 \label{e:lrs2}\\
+\Delta \omega = \omega_u / M.
+\end{IEEEeqnarray}
+The frequency sampling is $\Delta\omega$, the upper cut-off frequency, $\omega_u$, is the frequency beyond which the PSD may be assumed to be zero, $\phi_0, \phi_1, ... , \phi_{M-1}$ are random phase angles distributed uniformly over the interval $[0,2\pi)$.  Note the factor of $1/(2\pi)$ in (\ref{e:an}) is necessary to maintain the integral relationship between the spectrum and the variance of the underlying stochastic process, i.e.,
+\begin{IEEEeqnarray}{rcl}
+\IEEEyesnumber\label{e:freq} \IEEEyessubnumber*
+E[v_g^2(t)] & = & \sigma_{v_g}^2 \\
+& = &\int_{0}^{\infty}S_{f}(f)df \\
+& = &\frac{1}{2\pi}\int_{0}^{\infty}S_{f}(f=\frac{\omega}{2\pi}) d\omega \\
+& \leq & \frac{1}{2} \left( \frac{2 \pi}{\Delta \omega} \right) \frac{1}{M}.
+\end{IEEEeqnarray}
+The condition
+\begin{equation}
+  A_0 = 0 \; \mathrm{or} \; S_{f}(\omega_0=0)=0
+  \label{e:an0}
+\end{equation}
+is necessary and must be forced if $S_{yy}(0)\neq 0$.  The resulting simulated time series is periodic with period
+\begin{equation}
+  \label{e:T0}
+  T_0 = \frac{2\pi}{\Delta \omega}.
+\end{equation}
+
+The time series is realized by combining (\ref{e:dimensional}), (\ref{e:sumcosines}) and (\ref{e:sim2}) to generate $v_g$, the variable wind speed stochastic process described by the Forristall wind spectrum.  For wind at $z=0$ and a fully developed sea ($H_s=H_n$) this time series is solely a function of mean wind speed, $\bar{v}=v_{10}$. The example in Figure~\ref{f:forristall} illustrates the results for three different mean wind speeds.
+\begin{figure}[hbt!]
+  \centering
+  \includegraphics[width=\SFc\textwidth]{src/foristall_time_ex.png}
+  \caption{Example time series of variable wind speed component generated by spectral representation for Forristall spectrum for different mean wind speed values.}
+  \label{f:forristall}
+\end{figure}
+In the upper axis, the speed is normalized by the standard deviation of the time series to illustrate the similarity in the results. This view also highlights that the higher mean wind velocities generate spectra with a slightly higher cutoff frequency (\ref{e:cutoff}).
+%
+\section{Vehicle Model}
+%
+To approximate the motion of a surface vehicle in the ocean environment, the six degree-of-freedom robot-like vectorial model for marine craft, proposed by \citet{fossen11handbook} is adapted and expressed as\footnote{The rigid-body terms can be expressed equivalently using either the total vessel velocity or the velocity relative the fluid, see Property 8.1 of \citet{fossen11handbook}.  For this implementation the rigid-body terms and the hydrodynamics terms are solved for separately, and it is more direct to leverage the native physics engine in terms of total rigid-body velocity.}
+\begin{equation}
+\begin{split}
+\underbrace{\bm{M}_{RB}\dot{\bm{\nu}}+\bm{C}_{RB}(\bm{\nu})\bm{\nu}}_\text{rigid-body forces} + 
+\underbrace{\bm{M}_A\dot{\bm{\nu}}_r + \bm{C}_A(\bm{\nu}_r)\bm{\nu}_r + 
+  \bm{D}(\bm{\nu}_r)\bm{\nu}_r}_\text{hydrodynamic forces} + 
+\underbrace{\bm{g}(\bm{\eta})}_\text{hydrostatic forces}  = \\
+\bm{\tau}_{propulsion}+\bm{\tau}_{wind}+\bm{\tau}_{waves}
+\label{e:fossenmodel}
+\end{split}
+\end{equation}
+where
+\begin{IEEEeqnarray}{rCl}\IEEEyesnumber\label{e:estate}
+    \bm{\eta} & = & [x, y, z, \phi, \theta, \psi]^T \IEEEyessubnumber \\
+    \bm{\nu}  & = & [u, v, w, p, q, r]^T \IEEEyessubnumber
+\end{IEEEeqnarray}
+are the position and velocity vectors respectively for surge, sway, heave, roll, pitch and yaw.  The total velocity, $\bm{\nu}$, is the sum of an irrotational water current velocity, $\bm{\nu}_c$, and the vessel velocity relative to the fluid, $\bm{\nu}_r$, i.e., $\bm{\nu}=\bm{\nu}_r+\bm{\nu}_c$.  The forces and moments due to propulsion (control), wind, and waves are represented as $\bm{\tau}_{propulsion}$, $\bm{\tau}_{wind}$ and $\bm{\tau}_{waves}$.
+
+Traditionally, surface vessel models are separated into \emph{maneuvering} models (representing the surge, sway and yaw degrees-of-freedom) and \emph{seakeeping} models (representing the heave, pitch and roll degrees-of-freedom). For the purposes of supporting the development of autonomy, it is important that the unified simulation model include \emph{both} maneuvering and seakeeping degrees-of-freedom. The maneuvering aspects of the model influence the vessel steering and control portion of the autonomy solution. The inclusion of the seakeeping aspect of the model is critical for exercising the sensory perception portion of the autonomy solution.
+
+%Our approach to formulating both portions of our unified model is identical. We seek the lowest fidelity representation possible for each that is able to achieve the correct type of dynamic response but not necessarily the correct magnitude of that particular response. For a maneuvering surface vessel, the hydrodynamic terms, particularly the damping terms, play a critical role in the type of resultant motion
+%\color{red}
+%since the hydrostatic terms do not act in the horizontal plane. On the other hand, the seakeeping degrees-of-freedom are dominated by the hydrostatic and wave excitation forces. Even without non-diagonal added-mass and nonlinear damping terms in these degrees-of-freedom, the vehicle model still produces oscillatory motion which induces sensor changes that can impact perception. By neglecting these terms, our model will typically produce larger motion responses, but it will not change the kind of response the simulation produces. For example, the lack of a nonlinear damping term for the roll degree of freedom will potentially result in overly large roll angles in response to wave encounters, but the dominant restoring moment from the hydrostatic term is present.
+%\color{black}
+
+%The intended use of the VRX simulation, as described in this article, does not justify the additional complexity and challenges associated with incorporating the neglected hydrodynamic terms into either portion of  unified model. Finally, it is important to note that the unified model formulation presented here is intended for a small unmanned surface vehicle. When modeling different vehicles, such as unmanned underwater vehicles, the model may need to be altered to include additional hydrodynamic terms. This would depend on the specific vehicle geometry and any appendages it contained.
+
+%The motion of a vessel is approximated in simulation by estimating each of the constituent forces in \eqref{e:fossenmodel} at each time step of the simulation. The rigid body components are simulated using the Gazebo physics engine.  The remaining constituents are simulated using the model components described below.
+
+\subsection{Hydrodynamic Forces}\label{s:hydro}
+%
+The hydrodynamic forces in \eqref{e:fossenmodel} include the added mass terms due to the inertia of the surrounding fluid and hydrodynamic damping terms due to the vehicle interacting with the surrounding fluid. The terms are captured using coefficients, typically referred to as hydrodynamic derivatives, and expressed using SNAME (1950) notation \citep{fossen11handbook}.
+
+%\color{red}
+The added mass matrix is expressed as
+\begin{equation}\hspace{-0.15in}
+\medmath{
+\bm{M}_{A}= -\left[ 
+\begin{array}{cccccc}
+X_{\dot{u}} & 0 & 0 & 0 & 0 & 0 \\
+0 & Y_{\dot{v}} & 0 & 0 & 0 & Y_{\dot{r}} \\
+0 & 0  &Z_{\dot{w}} & 0 & 0 & 0 \\
+0 & 0 & 0 &K_{\dot{p}} & 0 & 0 \\
+0 & 0 & 0 & 0 &M_{\dot{q}} & 0 \\
+0 & N_{\dot{v}} & 0 & 0 & 0 & N_{\dot{r}} 
+\end{array} \right]
+}
+\end{equation}
+where $N_{\dot{v}} = Y_{\dot{r}}$ is assumed for the \wamv{} since it is a slow moving surface ship \citet{fossen11handbook}.
+
+The surge, sway, yaw components of the model match the maneuvering model used by \citet{sarda16station}.  The off-diagonal elements of the added mass matrix, $\bm{M}_{A}$, will be small compared to the diagonal elements for most hullforms \citet{fossen11handbook}.
+
+
+Once the added mass terms that make up $\bm{M}_{A}$ are chosen, the derivation by \citet{imlay61complete} provides the Coriolis-centripetal added mass terms that result. The Coriolis-centripetal added mass matrix is expressed using the same hydrodynamic derivatives from $\bm{M}_{A}$. The resulting matrix is
+\begin{equation}
+    \medmath{\bm{C}_{A}(\bm{\nu}_r)=
+    \left[ 
+    \begin{array}{cccccc}
+        0 & 0 & 0 & 0 & -Z_{\dot{w}}w_r & Y_{\dot{v}}v_r+Y_{\dot{r}}r \\
+        0 & 0 & 0 & Z_{\dot{w}}w_r & 0 & -X_{\dot{u}}u_r\\
+        0 & 0 & 0 & -Y_{\dot{v}}v_r & X_{\dot{u}}u_r & 0 \\
+        0 & -Z_{\dot{w}}w_r & Y_{\dot{v}}v_r & 0 & -N_{\dot{r}}r_r & M_{\dot{q}}q_r \\
+        -Z_{\dot{w}}w_r & 0 & -X_{\dot{u}}u_r & N_{\dot{r}}r_r & 0 & -K_{\dot{p}}p_r \\
+        -Y_{\dot{v}}v_r - Y_{\dot{r}}r & X_{\dot{u}}u_r & 0 & -M_{\dot{q}}q_r & K_{\dot{p}}p_r & 0 
+    \end{array}
+    \right].}
+\end{equation}
+
+The expressions for estimating $X_{\dot{u}}$, $Y_{\dot{v}}$, $N_{\dot{r}}$, and $Y_{\dot{r}}$ are reported in \citet{sarda16station}. The added mass terms for the catamaran vessel are estimated using a method for calculating these terms for partially submerged horizontal cylinders in heave and sway \citet{greenhow88added}. 
+%From their work we were able to directly estimate the heave added mass, $Z_{\dot{w}}$, by assuming that each pontoon could be represented by a circular cylinder. For the roll and pitch added mass, we assumed that half of this added mass acted at half the beam, for roll, and a quarter of the length, for pitch.
+%\color{black}
+
+The hydrodynamic damping includes forces due to radiation-induced potential damping, skin friction, wave drift damping, vortex shedding and lifting forces \citep{fossen11handbook,krishnamurthy05modeling}.  These effects are aggregated in the hydrodynamic damping matrix 
+\begin{equation}
+\bm{D}(\bm{\nu}_r) = \bm{D}_l+\bm{D}_n(\bm{\nu}_r)
+\end{equation}
+expressed as a sum of linear and quadratic terms:
+\begin{equation}
+  \medmath{
+\bm{D}_l= -\left[ 
+\begin{array}{cccccc}
+X_{u} & 0     & 0     & 0     & 0     & 0\\
+0     & Y_{v} & 0     & 0     & 0     & Y_{r}\\
+0     & 0     & Z_{w} & 0     & 0     & 0 \\
+0     & 0     & 0     & K_{p} & 0     & 0 \\
+0     & 0     & 0     & 0     & M_{q} & 0 \\
+0     & N_{v} & 0     & 0     & 0     & N_{r}
+\end{array} \right]
+}
+\label{e:D}
+\end{equation}
+and
+\begin{equation}\label{e:D_n}
+  \medmath{
+    \bm{D}_n(\bm{\nu}_r) =
+    -\left[ 
+      \begin{array}{cccccc}% *** did an ad-hoc horizontal spacing fix here; perhaps there's a more elegant solution
+          X_{u|u|}|u_r| & \hspace{-0.25in}0 & 0 & 0 & 0 & \hspace{-0.10in}0 \\
+          0 & \hspace{-0.25in}Y_{v|v|}|v_r| & 0 & 0 & 0 & \hspace{-0.10in}0  \\
+          0 & \hspace{-0.25in}0 & 0 & 0 & 0 & \hspace{-0.10in}0   \\
+          0 & \hspace{-0.25in}0 & 0 & 0 & 0 & \hspace{-0.10in}0  \\
+          0 & \hspace{-0.25in}0 & 0 & 0 & 0 & \hspace{-0.10in}0  \\
+          0 & \hspace{-0.25in}0 & 0 & 0 & 0 & \hspace{-0.10in}N_{r|r|}|r| 
+      \end{array} \right].
+  }
+\end{equation}
+
+%\color{red}
+As discussed in \citet{fossen11handbook}, for a surface vehicle, the linear damping matrix captures predominately two effects, viscous skin-friction damping and potential damping. In the maneuvering degrees-of-freedom, the viscous component of the linear damping term becomes the dominant damping contribution for vehicles traveling at low speed. In the seakeeping degrees of freedom the radiation-induced potential damping component is important because these motion components by a surface vehicle produce significant radiated waves. The potential damping for these degrees-of-freedom is important regardless of the forward speed. Unlike the horizontal plane, the vertical plane motions have restoring forces or moments and consequently occur at their natural frequencies which affects the speed of these motions more than the vehicle forward speed.
+
+The linear damping matrix, $\bm{D}_l$, contains terms to capture both of these effects. The maneuvering degrees-of-freedom terms, $X_{u}$, $Y_{v}$, and $N_{r}$, capture the low-speed skin-friction damping the vehicle experiences and were included in the linear damping matrix used by \citet{sarda16station}.  The remaining maneuvering off-diagonal terms are assumed to be negligible. The seakeeping degrees-of-freedom terms, $Z_{w}$, $K_{p}$, and $M_{q}$, capture the radiation-induced potential damping the vehicle experiences. The potential damping results from \citet{greenhow88added} for a heaving partially submerged horizontal cylinder are used to estimate these terms. The roll and pitch damping values assumed that half this damping occurred at the same length scales as used for the added mass estimates. All the seakeeping off-diagonal terms should be negligible and are not included in the model.
+
+\citet{fossen11handbook} also highlighted that for a surface vehicle the nonlinear damping matrix, with its cross-flow damping terms, becomes the dominant damping contribution at high speed for the maneuvering degrees-of-freedom. Since the vehicle model is intended to capture the behavior of a wide range of surface vehicles and operating conditions, these nonlinear damping terms are includedin the generic unified model software implementation. However, since the \wamv{} is predominately a low speed vehicle, the $Y_{v|v|}$ and $N_{r|r|}$ terms to neglected. 
+%\color{black}
+
+This approximation of the hydrodynamic effects is implemented as a parameterized Gazebo plugin.  The user defines the characteristics of the vessel under test through a vessel-specific configuration file that includes the hydrodynamic derivatives.  During each time step of the simulation, the plugin is executed with access to the state of the vessel and environment.  The hydrodynamic force terms in \eqref{e:fossenmodel} are calculated based on this state information and the user-defined vessel characteristics.  The resulting force and moment values are then applied to the vessel through the Gazebo application programming interface (API) for inclusion in the next iteration of the physics engine.
+
+% maybe this paragraph is no longer needed???
+This simplified six degree-of-freedom model and the Gazebo plugin are generally applicable to surface vessels.  Applying this model to a specific vessel requires determining values for the hydrodynamic derivatives.  These values can be approximated from first principles (e.g., potential flow theory) or estimated through experimental testing (e.g., scale model testing).  \citet{sarda16station} estimate the hydrodynamic derivatives for a three degree-of-freedom model of the \wamv{} vessel by manually tuning the coefficients so that the model outputs agree with experimental measurements from at-sea maneuvering tests.  Each of the of linear drag terms in  \eqref{e:D} are estimated, but only the surge term in the quadratic drag matrix \eqref{e:D_n} is identified, implying that the remaining quadratic terms are neglected. These specific values are adopted for modeling the \wamv{} within the simulation as part of the VRX challenge use-case.
+
+\subsection{Hydrostatic and Wave Forces}
+The presence of ocean waves has two important effects in the context of developing autonomy for surface vessels: motion control effects and perception effects.  These two effects are captured in the vessel model hydrostatic  ($\bm{g}(\bm{\eta})$) and wave excitation ($\tau_{waves}$) terms in  \eqref{e:fossenmodel} and by the wave modeling presented in Section~\ref{s:wave}.  The visual model is implemented as a custom OpenGL shader to render the water surface based on the wave state.  The physical model uses the wave surface state at the vessel location to approximate the induced motion.  
+
+For the \wamv{} catamaran, a discretization of each demi-hull is performed based on the user-supplied grid resolution, $P$.  Algorithm~\ref{a:waves} outlines the structure of the Gazebo plugin used to generate the effect of incident waves.  On line 11 the wave force is generated based on the position and velocity of the vessel grid point, the velocity at the corresponding location on the wave field surface and the demi-hull geometry.  This restoring force is applied to the corresponding vessel location using the Gazebo API to generate the wave induced motion.
+\begin{algorithm}[H]
+  \caption{Wave Forcing}
+  \label{a:waves}
+  \begin{algorithmic}[1] % Number specifies line numbering.
+    \State pose = GetWorldPose()  
+    \State vel = GetWorldVelocity()  
+    \For{$i = 0$ to $2$}  \Comment{For each \wamv{} hull.}
+    \For{$j = 0$ to  $P$} \Comment{For each grid point.}
+    \State $\V{x}$ = GridPosition(pose.position,$i$,$j$) 
+    \State $z$ = GridHeight(pose.position, \\\hskip\algorithmicindent \hskip\algorithmicindent \hskip\algorithmicindent  \hskip\algorithmicindent  pose.orientation, $i$,$j$) 
+    \State $\dot{z}$ = GridVelocity(vel.linear, vel.angular, $i$,$j$)
+    \State $\zeta$ = WaveHeight($\V{x}$,t)  
+      \State $\dot{\zeta}$ = WaveVelocity($\V{x}$,t)
+      \State $f$ = WaveForce($z-\zeta$, $\dot{z} - \dot{\zeta}$)
+      \State ApplyForceAtPosition($f$,$\V{x}$) 
+      \EndFor
+    \EndFor
+    \end{algorithmic}
+\end{algorithm}
+\begin{figure}[hbt]
+  \centering
+  \includegraphics[width=\FigWidth\textwidth]{images/wamv_grid_v2.png}
+  \caption{Illustration of wave-induced forces on USV. Force vectors represent restoring forces at discrete grid points along the WAMV demi-hull.}
+  \label{f:wamv_grids}
+\end{figure}
+
+This approach to approximating the influence of ocean waves is a simplification intended to balance physical fidelity and visual realism with real-time execution requirements.  The result is consistent simulated motion and sensor feedback to exercise the pertinent aspects of autonomy, particularly motion control and sensor-based perception.  To preserve real-time execution, the model neglects wave influence factors typically included in applications where the precise motion of a particular vessel or structure design are of critical importance, e.g., studies that include slamming, green water on deck and dynamic stability.  A variety of software applications for naval architecture design provide methods to assess the effect of vessel design on resulting motion, but these solutions typically run much slower than real-time.  Previous work by the authors  compared the proposed approach with a commercial naval architecture design software package under similar sea conditions, taking into account model forces and motions to quantify the trade-offs in complexity and fidelity \citep{malia18modeling}. The results quantified the fidelity differences between the approaches and demonstrated that the proposed method could sufficiently exercise robotic autonomy while executing in real-time.
+
+%common hydrodynamic problems in seakeeping and vessel design.  As an example, vessel response in irregular waves is often formulated using potential flow and decomposed into components of diffraction and radiation potentials that generate corresponding forces \citep{newman77hydrodynamics,faltinsen90sealoads}.  The radiation effects result from fluid motion in response to vessel motion, generating forces due to vessel motion in a quiescent fluid.  These forces are accounted for in the added mass and damping terms described in Section~\ref{s:hydro}.  The diffraction effects result from wave interaction with the vessel body, generating forces on a stationary vessel in an oscillating wave field.  The diffraction effects can be further decomposed into incident and scattering effects.  The Froude-Krylov hypothesis simplifies this formulation by asserting that the body is sufficiently small as to not affect the pressure field of the wave, which enables neglecting the scattering effects.  Under these conditions the incident potential term is referred to as the Froude-Krylov force and approximates the excitation force due to the pressure field of the incident wave.  
+% Need a check on my edits above
+
+%Modeling approaches such as the potential flow formulation above provide an approximation of vessel response with additional fidelity compared to the simplified method we describe in Algorithm~\ref{a:waves}.  Higher fidelity methods are warranted for applications where real-time execution is not a priority and the details of the motion of a particular vessel or structure design are of critical importance.  Such applications consider effects such as slamming, green water on deck and dynamic stability.  A variety of naval architecture design software applications provide capabilities to assess the affect of vessel design on resulting motion.  Previous work by the authors \citep{malia18modeling} compared the proposed approach with a commercial naval architecture design software package under similar sea conditions, taking into account model forces and motions to quantify the trade-offs in complexity and fidelity. The results showed that while there is a reduced fidelity for the Gazebo-based approach, it nonetheless demonstrates the ability to sufficiently exercise the robotic autonomy while executing in real-time.  
+
+\subsection{Wind Forces}
+The model used for simulating the wind environment---consisting of horizontal wind speed ($V_w$) and direction ($\beta_w$)---is described in Section~\ref{s:wind_model}.  The influence of this simulated wind time series on the maneuvering degrees-of-freedom is captured via the following coefficient-based approach.  The model notation is described by \citet{fossen94guidance}.  The relative (apparent) wind velocities are
+\begin{IEEEeqnarray}{rCl}\IEEEyesnumber\label{e:relwind}
+u_{rw} & = u - u_w \IEEEyessubnumber \\
+v_{rw} & = v - v_w \IEEEyessubnumber 
+\end{IEEEeqnarray}
+where $u_w$ and $v_w$ are the x and y components of the simulated wind velocity in the vessel body frame, expressed as
+\begin{IEEEeqnarray}{rCl}\IEEEyesnumber\label{e:wvel}
+u_w & = V_w \cos(\beta_w - \psi) \IEEEyessubnumber \\
+v_w & = V_w \sin(\beta_w - \psi). \IEEEyessubnumber 
+\end{IEEEeqnarray}
+The surge, sway and yaw components of the wind force vector ($\bm{\tau}_{wind}$ in \eqref{e:fossenmodel}) are dependent upon the apparent wind and the coefficients for each mode.  For symmetrical vessels, these wind coefficients can be considered constant.  Using dimensional wind coefficients $\bar{c}_x$, $\bar{c}_y$ and $\bar{c}_n$ forcing terms are expressed as
+\begin{IEEEeqnarray}{rCl}\IEEEyesnumber\label{e:wind} 
+  X_{wind} &=&\bar{c}_x u_{rw} |u_{rw}| \IEEEyessubnumber \\
+  Y_{wind} &=& \bar{c}_y v_{rw} |v_{rw}|\IEEEyessubnumber \\
+  N_{wind} &=& -2.0 \bar{c}_n u_{rw} v_{rw}. \IEEEyessubnumber
+\end{IEEEeqnarray}
+
+This wind forcing model is implemented as another standalone Gazebo plugin.  At runtime the user specifies the wind characteristics---mean direction and speed---and the vessel-specific wind coefficients in \eqref{e:wind}. The wind speed and direction at simulation time is calculated according to the wind generation model in \eqref{e:sim2}, the components of the apparent wind are calculated in the vessel body-frame and the resulting forces from \eqref{e:wind} are applied to the simulated vessel for inclusion in the next cycle of the physics engine update.
+
+Analogous to the hydrodynamic model, this approach to representing wind-induced forces is generally applicable to surface vessels and a vessel-specific application requires estimation of the wind coefficients.  For the \wamv{} model, wind coefficients have been estimated based on experimental testing \citep{sarda16station}.  These \wamv{} numerical values are employed for the VRX challenge reference implementation.  
+
+\subsection{Propulsion Forces}
+The propulsion system consists of a set of vessel-mounted thrusters to implement vessel motion control by generating external forces on the vehicle.  Design of the propulsion system includes specification of the thruster type,  thruster characteristics, and thruster location on the vessel.  To accommodate user-defined configurations, individual thruster force is modeled as a function of a thrust command between -1.0 (full reverse) and 1.0 (full forward).  At each time step the resulting external force is included in the model according to \eqref{e:fossenmodel}.  Implemented as a Gazebo plugin, this force is applied at the geometric location of the propeller joint as illustrated in \figref{f:thrust}.  Each thruster can also be articulated by commanding the angle of the thruster relative to the mount, allowing for the possibility of vectored thrust solutions.  The motion of the angular articulation is simulated through a proportional-derivative controller to move the thrust vector to the desired location with temporal dynamics representative of typical electromechanical dynamics.
+
+\begin{figure}[hbt!]
+  \centering
+  \includegraphics[width=\FigWidth\textwidth]{thruster_annote.png}
+  \caption{Illustration of propulsion forces for a two-thruster configuration.  Two independent forces are applied to the virtual body as indicated by the red arrows.  The angle of the each thruster relative the mounting point can also be controlled to allow for vectored thrust, as indicated by the green arcs.}
+  % Moved to comment: "This image needs work."
+  \label{f:thrust}
+\end{figure}
+
+While \figref{f:thrust} shows a typical configuration with two thrusters at the stern of the vessel, users may add multiple thrusters at other locations to reflect other possible propulsion system designs.  For example, an additional bow or lateral thruster is often added for additional control authority; alternately, a four-thruster configuration with angled thrusters at the bow and stern of each hull can be implemented when maneuverability is prioritized over speed and efficiency.  
+
+The characteristics of an individual thruster are specified by a user-defined relationship between commanded effort and the resulting thrust force.  Two static mappings are included; custom mappings are supported for more specific cases.  The first mapping is a linear mapping where the command values (-1.0 to 1.0) are scaled linearly to the user supplied parameters for maximum forward and reverse thrust values.  
+
+The second, non-linear static mapping uses generalized logistic functions (GLFs) to approximate the relationship between command and force often provided as the result of static bollard-pull tests.  The GLF is parameterized as 
+\begin{equation}
+  T = A + \frac{K-A}{\left(C+\exp(-B(x-M))\right)^{1/\nu}}
+  \label{e:glf}
+\end{equation}
+where $T$ is the thrust in Newtons; $x$ is the commanded effort; and $A$, $K$, $C$, $B$, $M$, and $\nu$ are user-defined constants used to specify the GLF. To capture the asymmetry associated with forward and reverse, two independent GLFs are used, one for positive commands (0 to 1.0) and a second for negative commands (-1 to 0).  The user-specified functional parameters allow the thrust model used to approximate a wide variety of thruster designs based on empirical data.
+
+To illustrate this process the GLF thrust mapping is applied to approximate the steady-state bollard-pull experiments reported by \citet{sarda16station}.  To identify the GLF parameters, a Nelder-Mean simplex optimization was performed to minimize the squared error between the model and the GLF expressions \eqref{e:glf} as a function of the GLF parameters.  The results are shown in \figref{f:fit}.
+\begin{figure}[hbt]
+  \centering
+  \includegraphics[width=\SFc\textwidth]{src/wamv_glf_annote.png}
+  \caption{Generalized logistic function fit of empirical  bollard-pull thrust performance data from \citep{sarda16station}.}
+  \label{f:fit}
+\end{figure}
+
+This approach to simulating propulsion force approximates the steady-state non-linearities to exercise the motion controllers under test.  However, it does not address effects such as transient thruster dynamics for slow-speed control described by \citet{whitcomb99development}, varying advance ratios due to forward vessel speed for high-speed operation or changes in thrust during turning due to the changing inflow angle, which can generate meaningful side force.  Such additions to the propulsion model can be readily implemented, but rely upon the availability of more detailed propulsion characterization.
+%
+%\color{red}
+\section{Model and Simulation Verification}
+%
+To confirm the proposed vehicle model captures motion consistent with the physical \wamv{}, a series of standard maneuvering and seakeeping tests are simulated in the VRX environment. The purpose of these tests is to verify that the model captures realistic behavior and the correct dependencies on the wave and propulsion inputs. For incident waves a measurable but bounded motion response that increases as the wave height increases is expected. For the propulsion input a thrust difference between the two propellers is expected to result in the simulated vehicle turning in a circular arc with the radius decreasing as thrust differential increases.
+
+The first set of simulations were a series of seakeeping tests. The \wamv{} response was simulated using the vehicle and incident wave field models described above. In the simulation the \wamv{} had no controller setpoints and almost no thrust. The incident wave field was monochromatic, longcrested waves, that had a period of \unit[6]{s} and wave heights that varied from \unit[0]{m} up to \unit[2]{m} across the set of simulation runs. Assuming the deep water dispersion relationship, these waves had a wavelength of approximately \unit[56]{m} and thus a wavelength-to-vehicle length of roughly $14$. The largest wave has a wave steepness, wave height to wave length ratio, of $1/30$ which is typical for seakeeping tests. These conditions were chosen because they represent a wave environment ranging from a Sea State $1$ to $4$ \citep{bales83designing}.
+
+Figure~\ref{f:head_seas} shows the amplitude of the oscillatory heave, pitch, and roll responses of the \wamv{} to head seas under these wave and operating conditions.
+% Note - data for these figures is on teams - https://nps01.sharepoint.com/:f:/s/FieldRoboticsLaboratory/EvhPhkP0rWBFrHNoL44iYKkBfpukUBrKjpvRfRwhS8hXHA?e=ze1rHR
+\begin{figure}[hbt]
+  \centering
+  \includegraphics[width=\SFc\textwidth]{src/2020_08_25_head_seas_001.png}
+  \caption{Simulation results for wave induced motion in head seas.}
+  \label{f:head_seas}
+\end{figure}
+%
+Each simulation was run for \unit[60]{s} of simulation time, which was verified to be sufficient time for the dynamics to reach steady-state, resulting in roughly $10$ wave encounters. The amplitude of the oscillatory motion response in each degree-of-freedom was determined using only the last 2 wave encounters to avoid being influenced by the initial transients. The roll and pitch amplitude is plotted using the left y-axis scale in the figure and the heave amplitude is plotted against the right y-axis scale. Since these cases correspond to head seas, an increasing amplitude in pitch and heave and very little response in roll is expected. The figure shows that the pitch and heave amplitude responses of the \wamv{} increased as the wave height increased. Furthermore, the responses show that the \wamv{} is contouring to the passing waves as typically happens when the wavelength is considerably longer than the vehicle length. This means that the pitch angle matches the local slope of the wave and the heave displacement matches the wave amplitude. For the largest wave simulated, the maximum wave slope, given by $ka$, is \unit[6.4]{$^\circ$} and matches the simulated amplitude of the oscillating pitch. The heave amplitude response of the \wamv{} for this wave equals \unit[1]{m} which is the wave amplitude. Finally, the roll amplitude remains very small as the wave height increases. There is a small response since the vehicle does not remain perfectly aligned in a head seas condition, instead yawing slightly since there is no heading controller during these simulations.
+
+Figure~\ref{f:beam_seas} shows the heave, pitch, and roll response amplitudes of the \wamv{} again but this time for beam seas. The formatting of the figure axes and data is the same as Fig.~\ref{f:head_seas}.%
+%
+\begin{figure}[hbt]
+  \centering
+  \includegraphics[width=\SFc\textwidth]{src/2020_08_25_beam_seas_001.png}
+  \caption{Simulation results for wave induced motion in beam seas.}
+  \label{f:beam_seas}
+\end{figure}
+%
+Since this is a beam seas wave environment, a vehicle roll response is expected, along with heave response. The figure shows that the simulated roll and heave amplitudes of the oscillatory response of the \wamv{} increase as the wave height increases and that the vehicle motion is again contouring to the passing wave. The ratio of the pitch amplitude to the wave slop is again unity as is the ratio of the heave amplitude to wave amplitude. Finally, consistent with a beam sea, the pitch response of the \wamv{} is much smaller than the roll response.
+
+The second set of simulations were a series of maneuvering tests involving turning circles. The vehicle model was used to simulate the \wamv{} response to a thrust differential in calm water. By having the thrust command of the port and starboard propellers be different, a yawing moment is experienced by the vehicle and it should follow a circular trajectory. In each simulation, the magnitude of the overall thrust command was set to 0.75\% of the maximum. This made the surge velocity roughly constant across the simulations. Each simulation was run for \unit[60]{s}, so the distance traveled by the vehicle is approximately equal for each run shown.
+
+Figure~\ref{f:manuevering} shows the \wamv{} trajectory for each of the simulations. The legend shows what the thrust command was for the port and starboard propeller for each run, with each run denoted by a different color. The trajectories clearly show the correct behavior that a thrust differential causes the \wamv{} to perform a turn. Furthermore, the model also captures the correct behavior that as the thrust differential increases, the \wamv{} undergoes a tighter turn and has a larger yaw rate.
+\begin{figure}[hbt]
+  \centering
+  \includegraphics[width=\SFc\textwidth]{images/2020_08_25_manuevering_000.png}
+  \caption{Simulation results for maneuvering in calm water.}
+  \label{f:manuevering}
+\end{figure}
+
+The results of the simulation runs confirm that the implemented unified model displays the correct type of behavior in the seakeeping heave, roll, pitch degrees-of-freedom and the maneuvering surge, sway, yaw degrees-of-freedom. The simulated motion demonstrates the correct behavior that incident waves cause the \wamv{} to undergo oscillatory motion, that the amplitude of these motions increase with increasing wave height, and that the vehicle contours to the wave. The simulated turning maneuvers are also consistent with the anticipated motion resulting from application of differential thrust, i.e., the diameter of the turning circle decreases as the thrust differential increases.
+%\color{black}
+%
+\section{VRX Reference Implementation}
+%
+Launched in 2012 with support from the Office of Naval Research, the Maritime RobotX Challenge is hosted biannually by RoboNation to promote research and advancement in autonomous surface vehicles, as well as to encourage student interest and foster relationships within the robotics community. Participating teams compete to design and implement systems capable of accomplishing a variety of tasks ranging from basic navigation and control to more complex operations involving obstacle avoidance, perception and underwater object retrieval.
+
+%Since its inception, RobotX has drawn interest from well over a dozen university robotics teams at each of its event. The latest of these, held in 2018 at Sand Island Boat Launch in Honolulu, involved contributions from 15 universities from around the Pacific Rim. 
+%
+The purpose of the VRX challenge is to provide competitors with the opportunity to prototype and test software solutions in advance of physical on-water deployments. A major goal of the project is to facilitate improved performance in the physical competition. As such, it implements a suite of models and plugins that closely mirrors the location, course elements, and types of tasks encountered by participants in RobotX 2018. \figref{f:robotx_vrx} shows a visual comparison of an example vehicle and elements from RobotX alongside a similar scene rendered in the VRX environment with Gazebo. %To encourage engagement with the platform as well as to underscore its utility with respect to preparing for RobotX, we employ these components in the creation of the VRX Competition-\footnote{\url{https://robotx.org/index.php/about/about-virtual-robotx}}---a virtual competition that parallels the structure and approach of the RobotX Challenge. 
+
+\begin{figure}[hbt!]
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/robotx_vrx_wamv.png}
+  \caption{A visual comparison of a physical \wamv{} and course elements from RobotX 2018 (left) with a similar scene rendered in the VRX environment using Gazebo (right).}
+  \label{f:robotx_vrx}
+\end{figure}
+
+The first VRX Competition was held in November 2019. Similar to RobotX, the VRX Challenge is organized around a series of tasks that evaluate autonomous navigation and perception capabilities of participants' solutions.  These tasks include station-keeping, waypoint guidance, object localization and characterization, navigation and rules of the road, and docking.  The VRX environment also serves as a proof of concept for the theory of operations herein described. Tasks require teams to develop solutions that correctly compensate for the influence of waves and wind when controlling the motion of the vehicle. The station-keeping and path planning tasks, in particular, bring this requirement into relief.  In order for these tasks to provide useful evaluations of participant solutions, the VRX environment must succeed in simulating the impact of wind and wave forces with sufficient fidelity and speed.  The object localization and characterization task isolates environmental effects on perception, and therefore relies heavily on the availability of synchronized visual and physical models. Finally, the more complex navigation and docking tasks test the ability of the VRX environment to render a real-time simulation that gives a sufficiently faithful approximation of environmental influence on both motion control and perception effects at the same time\footnote{A complete description of the VRX 2019 challenge tasks is available at \url{https://github.com/osrf/vrx/wiki}.}.
+
+\figref{f:sandisland_wind} and \figref{f:dock_waves} demonstrate the combined effect of the environmental and vehicle models within the VRX simulation environment. \figref{f:sandisland_wind} depicts the base Sand Island world on which the competition is built, including course elements and the \wamv{}. The inset graph included in the display shows the wind speed varying over time in accordance with user specified parameters and the model given in Section~\ref{s:wind_model}. \figref{f:dock_waves} was created from the Dock task plugin using a peak period of $5$ seconds and a gain ratio of $0.7$. The scene illustrates the effect of the wave field on vehicle motion as well as the disturbances to the perception system produced by the resulting pitch, roll and heave of the vehicle.  
+
+\begin{figure}[hbt!]
+  \centering
+  \includegraphics[width=\FigWidth\textwidth]{images/perception_task.png}
+  \caption{The VRX Competition Perception task tests the ability to identify the number and type of markers that appear in the vehicle's point of view during a short time interval. The vehicle remains fixed along the $x$ and $y$ axes but is still subject to environmental forces that may cause it to pitch, roll and heave during the task.}
+  \label{f:perception_waves}
+\end{figure}
+
+\begin{figure}[hbt!]
+  \centering
+  \includegraphics[width=\FigWidth\textwidth]{images/sand_island_beach_wind.png}
+  \caption{The VRX Sand Island world rendered in Gazebo with a plot of wind speed over time.}
+  \label{f:sandisland_wind}
+\end{figure}
+
+\begin{figure}[hbt!]
+  \centering
+  \includegraphics[width=\FigWidth\textwidth]{images/waves_sync.png}
+  \caption{The VRX Competition Dock task with a non-trivial wave environment ($K = 0.7$, $T_p = 5$). Note the \wamv{} is slightly rolled and pitched due to wave forcing, and the effect of this disturbance is reflected in the camera view.}
+  \label{f:dock_waves}
+\end{figure}
+
+\begin{figure}[hbt!]
+  \centering
+  \includegraphics[width=\FigWidth\textwidth]{images/navigation_wide_fog_2.png}
+  \caption{The impact of fog on VRX Competition Navigation task. As the vehicle enters the course, the color of distant markers is obscured by fog and appears faded. Similarly, black spherical obstacles are clearly visible up close, but rendered gray in the distance, making them difficult to distinguish from the water surface. }
+  \label{f:navigation_fog}
+\end{figure}
+
+\section{Conclusion}
+
+This article documents the theory of operation of a free and open source robotic simulation environment designed specifically to support rapid development, testing and evaluation of new autonomy solutions for marine applications.  The contributions of this research are a wave model for visual and physical effects based on Gerstner waves and the two-parameter Pierson Moskowitz spectrum, a wind model to represent mean and variable (gust) components based on the generic spectral representation, a parameterized propulsion model, a six degree-of-freedom vessel model to capture environmental and control influence on vessel motion and sensor perception, and a demonstrative reference implementation: the new 2019 VRX challenge robot competition.
+
+The VRX simulation is implemented as a set of Gazebo plugins, object models (visual, collision and rigid body representations), and environmental scenarios (world scenes) released as an open source project.  The simulation is highly parameterized, allowing users to specify the details of the environmental (wave and wind spectra constants), the vessel (hydrodynamic and wind coefficients), the propulsion (thruster location and authority) and the sensors (type and location). This parameterization generalizes the simulation so that it is adaptable to a variety of surface marine autonomy applications.
+
+%As a specific proof-of-concept we present the configuration of these general purpose tools to create a virtual version of RobotX scenarios---the VRX challenge.
+
+\section*{Acknowledgments}
+This project was supported in part by the Department of the Navy, Office of Naval Research.  The VRX simulator is an open source project that welcomes community contributions.  We thank all the contributors for their time and energy.  A current list of contributors is maintained at \url{https://github.com/osrf/vrx/wiki/Contributors}.
+
+This article extends prior work by the authors in the same subject \citep{bingham19toward} by improving the environmental disturbance models (wind and waves) to increase physical fidelity, refining the surface vessel maneuvering and seakeeping model, %\color{red}
+performing a number of seakeeping and maneuvering vehicle response verification tests, %\color{black}
+and reporting the outcome of the first virtual robotics competition.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{adjustwidth}{-\extralength}{0cm}
+%\printendnotes[custom] % Un-comment to print a list of endnotes
+
+\reftitle{References}
+
+\bibliography{bbing_master}
+
+
+% If authors have biography, please use the format below
+%\section*{Short Biography of Authors}
+%\bio
+%{\raisebox{-0.35cm}{\includegraphics[width=3.5cm,height=5.3cm,clip,keepaspectratio]{Definitions/author1.pdf}}}
+%{\textbf{Firstname Lastname} Biography of first author}
+%
+%\bio
+%{\raisebox{-0.35cm}{\includegraphics[width=3.5cm,height=5.3cm,clip,keepaspectratio]{Definitions/author2.jpg}}}
+%{\textbf{Firstname Lastname} Biography of second author}
+
+% For the MDPI journals use author-date citation, please follow the formatting guidelines on http://www.mdpi.com/authors/references
+% To cite two works by the same author: \citeauthor{ref-journal-1a} (\citeyear{ref-journal-1a}, \citeyear{ref-journal-1b}). This produces: Whittaker (1967, 1975)
+% To cite two works by the same author with specific pages: \citeauthor{ref-journal-3a} (\citeyear{ref-journal-3a}, p. 328; \citeyear{ref-journal-3b}, p.475). This produces: Wong (1999, p. 328; 2000, p. 475)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% for journal Sci
+%\reviewreports{\\
+%Reviewer 1 comments and authors’ response\\
+%Reviewer 2 comments and authors’ response\\
+%Reviewer 3 comments and authors’ response
+%}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\PublishersNote{}
+\end{adjustwidth}
+\end{document}
+
